@@ -4,13 +4,13 @@ import { getAuth} from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAu8vwTj33m7wpbC3Wk3MFGsOOJcJH3icQ",
-    authDomain: "journeyjoy-e5fdb.firebaseapp.com",
-    projectId: "journeyjoy-e5fdb",
-    storageBucket: "journeyjoy-e5fdb.appspot.com",
-    messagingSenderId: "941786593",
-    appId: "1:941786593:web:9ab77020701b8ce2793ea0"
-  };
+  apiKey: "AIzaSyDg5edKzn2ENZNiWkxHhJz_Akh6ACb5fw0",
+  authDomain: "journeyjoy-7cca4.firebaseapp.com",
+  projectId: "journeyjoy-7cca4",
+  storageBucket: "journeyjoy-7cca4.appspot.com",
+  messagingSenderId: "477651921094",
+  appId: "1:477651921094:web:fd84519b4c12ea06040fc7"
+};
 
 // Initialize Firebase
 initializeApp(firebaseConfig);
