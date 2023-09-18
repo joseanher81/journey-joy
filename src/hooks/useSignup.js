@@ -5,12 +5,12 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useAuthContext } from "./useAuthContext";
 import { collection, doc, setDoc } from "firebase/firestore";
 
-export const useSignuo = () => {
+export const useSignup = () => {
     const [error, setError] = useState(null);
     const [isPending, setIsPending] = useState(false);
     const { dispatch } = useAuthContext();
 
-    const signUp = async (email, password, displayName) => {
+    const signUp = async (email, password, displayName, thumbnail) => {
         setError(null);
         setIsPending(true);
 
@@ -20,8 +20,14 @@ export const useSignuo = () => {
 
             if(!user) throw new Error('Could not complete signup');
 
+             // Upload user thumbnail
+             const uploadPath = `thumbnails/${user.uid}/${thumbnail.name}`;  // Path in fb store to save
+             const imagesRef = ref(storage, uploadPath);
+             const img = await uploadBytes(imagesRef, thumbnail);
+             const downloadURL = await getDownloadURL(img.ref);
+
             // Update display name
-            await updateProfile(user, {displayName});
+            await updateProfile(user, {displayName, photoURL: downloadURL});
 
             // Create a user document in firebase (doc id is the same as user id)
             const docRef = doc(db, 'users', user.uid);
