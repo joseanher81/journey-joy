@@ -2,6 +2,8 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import { useAuthContext } from "./hooks/useAuthContext";
 import { Navigate, Route, Routes } from "react-router-dom";
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import Topbar from "./components/Topbar";
 import Sidebar from "./components/Sidebar";
 import SignupPage from "./pages/signup/SignupPage"; 
@@ -17,24 +19,26 @@ function App() {
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <div className="app">
-          {isAuthReady && (
-            <>
-              {user && <Sidebar />}
-              <main className="content">
-                {user && <Topbar />}
-                <Routes>
-                  <Route path="/" element={ user ? <DashboardPage /> : <Navigate to='/login' />} />
-                  <Route path="/new" element={ user ? <CreatePage /> : <Navigate to='/login' />} />
-                  <Route path="/signup" element={ !user ? <SignupPage /> : <Navigate to='/' />} />
-                  <Route path="/login" element={ !user ? <LoginPage /> : <Navigate to='/' />} />   
-                </Routes>
-              </main>
-            </>
-          )}
-        </div>
-        </ThemeProvider>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <CssBaseline />
+          <div className="app">
+            {isAuthReady && (
+              <>
+                {user && <Sidebar />}
+                <main className="content">
+                  {user && <Topbar />}
+                  <Routes>
+                    <Route path="/" element={ user ? <DashboardPage /> : <Navigate to='/login' />} />
+                    <Route path="/new" element={ user ? <CreatePage /> : <Navigate to='/login' />} />
+                    <Route path="/signup" element={ !user ? <SignupPage /> : <Navigate to='/' />} />
+                    <Route path="/login" element={ !user ? <LoginPage /> : <Navigate to='/' />} />   
+                  </Routes>
+                </main>
+              </>
+            )}
+          </div>
+        </LocalizationProvider>
+      </ThemeProvider>
     </ColorModeContext.Provider>
     
   );
