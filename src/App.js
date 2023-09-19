@@ -7,6 +7,7 @@ import Sidebar from "./components/Sidebar";
 import SignupPage from "./pages/signup/SignupPage"; 
 import LoginPage from "./pages/login/LoginPage";
 import DashboardPage from "./pages/dashboard/DashboardPage";
+import CreatePage from "./pages/create/CreatePage";
 
 
 function App() {
@@ -25,8 +26,9 @@ function App() {
                 {user && <Topbar />}
                 <Routes>
                   <Route path="/" element={ user ? <DashboardPage /> : <Navigate to='/login' />} />
+                  <Route path="/new" element={ user ? <CreatePage /> : <Navigate to='/login' />} />
                   <Route path="/signup" element={ !user ? <SignupPage /> : <Navigate to='/' />} />
-                  <Route path="/login" element={ !user ? <LoginPage /> : <Navigate to='/' />} />
+                  <Route path="/login" element={ !user ? <LoginPage /> : <Navigate to='/' />} />   
                 </Routes>
               </main>
             </>

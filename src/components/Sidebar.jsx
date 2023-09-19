@@ -3,6 +3,7 @@ import { AddCircleOutlineOutlined, SubjectOutlined } from "@mui/icons-material";
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
 import { tokens } from "../theme";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -10,6 +11,8 @@ export default function Sidebar() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const {user} = useAuthContext();
+  const navigate = useNavigate();
+
 
   const menuItems = [
     { 
@@ -20,7 +23,7 @@ export default function Sidebar() {
     { 
       text: 'Create Trip', 
       icon: <AddCircleOutlineOutlined color="secondary" />, 
-      path: '/create' 
+      path: '/new' 
     },
   ];
 
@@ -65,10 +68,10 @@ export default function Sidebar() {
               <ListItem 
                 button 
                 key={item.text} 
-                onClick={()=>console.log('click')}
+                onClick={()=>navigate(item.path)}
               >
-                <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText primary={item.text} />
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.text} />
               </ListItem>
             ))}
           </List>
