@@ -1,5 +1,5 @@
 import { useTheme } from "@emotion/react";
-import { Box, Button, Container, Grid, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, TextField, Typography } from "@mui/material";
 import Paper from '@mui/material/Paper';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { tokens } from "../../theme";
@@ -7,7 +7,7 @@ import { useState } from "react";
 import { timestamp } from '../../firebase/config';
 import { useFirestore } from "../../hooks/useFirestore";
 import { useNavigate } from "react-router-dom";
-
+import { loadPlacePicture } from "../../helpers/loadPlacePicture";
 
 export default function CreatePage() {
 
@@ -16,6 +16,7 @@ export default function CreatePage() {
     const navigate = useNavigate();
     const { addDocument, response } = useFirestore('trips');
     const [formError, setFormError] = useState(null);
+
 
     // Dates state
     const [startDate, setStartDate] = useState(null);
@@ -55,10 +56,15 @@ export default function CreatePage() {
             return;
         }
 
+        // Get image for place
+        const pictureUrl = await loadPlacePicture(place);
+       
+
         // Document to be saved
         const trip = {
             title,
             place,
+            pictureUrl,
             description,
             startDate: timestamp.fromDate(new Date(startDate)),
             endDate: timestamp.fromDate(new Date(endDate))

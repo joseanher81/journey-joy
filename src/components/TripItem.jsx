@@ -27,7 +27,7 @@ export default function TripItem({trip}) {
                 // 16:9
                 pt: '56.25%',
             }}
-            image="https://source.unsplash.com/random?wallpapers"
+            image={trip.pictureUrl}
             />
             <CardContent sx={{ flexGrow: 1 }}>
 
