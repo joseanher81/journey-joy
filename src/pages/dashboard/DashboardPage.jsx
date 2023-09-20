@@ -6,7 +6,7 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 
 export default function DashboardPage() {
   const {user} = useAuthContext();
-  const {documents,error} = useCollection('trips');
+  const {documents,error} = useCollection('trips', null, 'startDate');
 
 
   return (

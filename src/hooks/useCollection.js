@@ -17,14 +17,15 @@ export const useCollection = (col, _query, _orderBy) => {
         // Referencia a la colección
         let collectionRef = collection(db, col);
 
-        if(_query) {
+
+        if(q) {
             // Crea una consulta que incluye el filtro
             collectionRef = query(collectionRef, where(...q));
         }
 
-        if(_orderBy) {
+        if(order) {
             // Crea una consulta que incluye el orden
-            collectionRef = query(collectionRef, orderBy(...order));
+            collectionRef = query(collectionRef, orderBy(order));
         }
 
         // Subscripcion
