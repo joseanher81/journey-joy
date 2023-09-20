@@ -17,11 +17,6 @@ const Topbar = () => {
   const {logout, isPending} = useLogout();
   const location = useLocation();
 
-  
-  // useEffect(()=> {
-  //   console.log("loction",location)
-  // }, [location])
-
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
       {/* SEARCH BAR: Only shown in dashboard */}
