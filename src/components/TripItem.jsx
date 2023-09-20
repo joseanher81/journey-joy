@@ -2,9 +2,12 @@ import { Button, Card, CardActions, CardContent, CardMedia, Grid, Typography } f
 import { FmdGoodOutlined, AccessTimeOutlined, CalendarMonthOutlined } from "@mui/icons-material";
 import { formatDistanceToNow, differenceInDays  } from 'date-fns';
 import esLocale from 'date-fns/esm/locale/es';
+import { useNavigate } from "react-router-dom";
 
 
 export default function TripItem({trip}) {
+
+    const navigate = useNavigate();
 
     const formattedTimeDistance = formatDistanceToNow(trip.startDate.toDate(), {
         addSuffix: true,
@@ -17,7 +20,7 @@ export default function TripItem({trip}) {
   
 
   return (
-    <Grid item xs={12} sm={6} md={4}>
+    <Grid item xs={12} sm={6} md={4} onClick={() => navigate(`/trips/${trip.id}`)}>
         <Card
             sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
         >

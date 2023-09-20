@@ -10,6 +10,7 @@ import SignupPage from "./pages/signup/SignupPage";
 import LoginPage from "./pages/login/LoginPage";
 import DashboardPage from "./pages/dashboard/DashboardPage";
 import CreatePage from "./pages/create/CreatePage";
+import TripPage from "./pages/trip/TripPage";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
                   <Routes>
                     <Route path="/" element={ user ? <DashboardPage /> : <Navigate to='/login' />} />
                     <Route path="/new" element={ user ? <CreatePage /> : <Navigate to='/login' />} />
+                    <Route path="/trips/:id" element={ user ? <TripPage /> : <Navigate to='/login' />} />
                     <Route path="/signup" element={ !user ? <SignupPage /> : <Navigate to='/' />} />
                     <Route path="/login" element={ !user ? <LoginPage /> : <Navigate to='/' />} />   
                   </Routes>
