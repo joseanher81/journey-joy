@@ -2,11 +2,30 @@ import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import TripsList from "../../components/TripsList";
 import { useCollection } from "../../hooks/useCollection";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useEffect, useState } from "react";
 
 
-export default function DashboardPage() {
+export default function DashboardPage({searchQuery, setSearchQuery}) {
   const {user} = useAuthContext();
   const {documents,error} = useCollection('trips', null, 'startDate');
+  const [trips, setTrips] = useState(null);
+
+  // Clean search query on first time (MAYBE THIS COULD BE SOLVED IN A BETTER WAY)
+  useEffect(()=> {
+    setSearchQuery('');
+  }, []);
+
+  // Update trip list according to search on topbar
+  useEffect(() => {
+    console.log('entra')
+    if(documents) {
+      let filtered = documents.filter(doc => {
+        return doc.title.toLowerCase().includes(searchQuery) || doc.place.toLowerCase().includes(searchQuery)
+      });
+      setTrips(filtered);
+    }
+  }, [searchQuery, documents]);
+
 
 
   return (
@@ -31,14 +50,14 @@ export default function DashboardPage() {
           </Typography>
           <Typography variant="h5" align="center" color="text.secondary" paragraph>
           ¡Hola, {user.displayName}! Aquí están todos tus viajes en un solo lugar, listos para ser explorados. Disfruta de la libertad de planificar, soñar y descubrir nuevos destinos. 
-          Tu próxima aventura te espera. ¡Empieza a crear recuerdos inolvidables ahora! 
+          Tu próxima aventura te espera. ¡Empieza a crear recuerdos inolvidables ahora!
           </Typography>
 
         </Container>
       </Box>
       {/*  End Hero unit */}
 
-      {documents && <TripsList trips={documents}/>}
+      {trips && <TripsList trips={trips}/>}
     </main>
   )
 }

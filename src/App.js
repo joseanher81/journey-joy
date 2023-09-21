@@ -11,11 +11,13 @@ import LoginPage from "./pages/login/LoginPage";
 import DashboardPage from "./pages/dashboard/DashboardPage";
 import CreatePage from "./pages/create/CreatePage";
 import TripPage from "./pages/trip/TripPage";
+import { useState } from "react";
 
 
 function App() {
   const [theme, colorMode] = useMode();
   const {user, isAuthReady} = useAuthContext();
+  const [searchQuery, setSearchQuery] = useState(''); // Maybe this could go somewhere else
 
   return (
     <ColorModeContext.Provider value={colorMode}>
@@ -27,9 +29,9 @@ function App() {
               <>
                 {user && <Sidebar />}
                 <main className="content">
-                  {user && <Topbar />}
+                  {user && <Topbar setSearchQuery={setSearchQuery}/>}
                   <Routes>
-                    <Route path="/" element={ user ? <DashboardPage /> : <Navigate to='/login' />} />
+                    <Route path="/" element={ user ? <DashboardPage searchQuery={searchQuery} setSearchQuery={setSearchQuery}/> : <Navigate to='/login' />} />
                     <Route path="/new" element={ user ? <CreatePage /> : <Navigate to='/login' />} />
                     <Route path="/trips/:id" element={ user ? <TripPage /> : <Navigate to='/login' />} />
                     <Route path="/signup" element={ !user ? <SignupPage /> : <Navigate to='/' />} />
