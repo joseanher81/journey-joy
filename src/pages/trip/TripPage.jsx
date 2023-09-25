@@ -1,7 +1,8 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Grid, Paper, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useDocument } from "../../hooks/useDocument";
 import DaysBoard from "./Board/DaysBoard";
+import Head from "./Head";
 
 
 export default function TripPage() {
@@ -18,32 +19,27 @@ export default function TripPage() {
 
     return (
         <main>
+            {/* HEAD SECTION */}
+            <Head trip={trip}/>
 
-            <Box
-                sx={{
-                    bgcolor: 'background.paper',
-                    pt: 8,
-                    pb: 6,
-                }}
-            >
-                <Container maxWidth="sm" >
-                    <Typography
-                        component="h1"
-                        variant="h2"
-                        align="center"
-                        color="text.primary"
-                        gutterBottom
-                    >
-                        {trip.title}
-                    </Typography>
-                    <Typography variant="h5" align="center" color="text.secondary" paragraph>
-                        {trip.description}
-                    </Typography>
-                </Container>
-            </Box>
+            {/* MIDDLE SECTION */}
+            <Grid container spacing={3}>
+                <Grid item xs={9}>
+                    <Paper elevation={3}>
+                    <Typography variant="h6">Test</Typography>
+                    {/* BOARD */}
+                        <DaysBoard trip={trip} />
+                    </Paper>
+                </Grid>
+                <Grid item xs={3}>
+                    <Paper elevation={3}>
+                    {/* COMMENTS */}
+                    <Typography variant="h6">Test 2</Typography>
+                    </Paper>
+                </Grid>
+            </Grid>
 
-            {/* BOARD */}
-            <DaysBoard trip={trip} />
+            
         </main>
   )
 }
