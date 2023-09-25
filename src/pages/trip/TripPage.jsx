@@ -1,18 +1,20 @@
 import { Box, Container, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useDocument } from "../../hooks/useDocument";
+import DaysBoard from "./Board/DaysBoard";
 
 
 export default function TripPage() {
 
     const { id } = useParams();
-    const { document, error } = useDocument('trips', id);
+    const { document: trip, error } = useDocument('trips', id);
 
 
     // TODO: Deal with error
 
     // Loading message
-    if(!document) return <Typography>Loading...</Typography>
+    if(!trip) return <Typography>Loading...</Typography>
+    if(trip) console.log('TRIP', JSON.stringify(trip))
 
     return (
         <main>
@@ -24,7 +26,7 @@ export default function TripPage() {
                     pb: 6,
                 }}
             >
-                <Container maxWidth="sm">
+                <Container maxWidth="sm" >
                     <Typography
                         component="h1"
                         variant="h2"
@@ -32,15 +34,16 @@ export default function TripPage() {
                         color="text.primary"
                         gutterBottom
                     >
-                        {document.title}
+                        {trip.title}
                     </Typography>
                     <Typography variant="h5" align="center" color="text.secondary" paragraph>
-                        {document.description}
+                        {trip.description}
                     </Typography>
                 </Container>
             </Box>
 
-
+            {/* BOARD */}
+            <DaysBoard trip={trip} />
         </main>
   )
 }
