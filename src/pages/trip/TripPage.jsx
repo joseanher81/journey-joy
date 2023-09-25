@@ -26,7 +26,6 @@ export default function TripPage() {
             <Grid container spacing={3}>
                 <Grid item xs={9}>
                     <Paper >
-                    <Typography variant="h6">Test</Typography>
                         {/* BOARD */}
                         <DaysBoard trip={trip} />
                     </Paper>

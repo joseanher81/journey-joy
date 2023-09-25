@@ -2,7 +2,7 @@ import React from 'react';
 import { Draggable } from '@hello-pangea/dnd';
 import styled from '@emotion/styled';
 import { Card, CardContent, Typography } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import { useTheme } from '@emotion/react';
 import { tokens } from '../../../theme';
 // import CustomAvatar from '../TableComponents/CustomAvatar'
@@ -72,7 +72,7 @@ const ActivityCard = ({ item, index, deleteActivityById, day }) => {
               <Typography variant="body2">
                 {item.Task}
               </Typography>
-              <DeleteIcon sx={{ marginLeft: 'auto' }} onClick={()=>deleteActivityById(day, item.id)}/>
+              <DeleteForeverOutlinedIcon sx={{ marginLeft: 'auto' }} onClick={()=>deleteActivityById(day, item.id)}/>
             </CardContent>
           </Card>
 

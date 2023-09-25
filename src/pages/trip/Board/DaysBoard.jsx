@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { DragDropContext, Droppable } from '@hello-pangea/dnd';
 import { formatActivitiesForBoard, formatActivitiesForFirebase } from '../../../helpers/formatActivities';
 import { useFirestore } from '../../../hooks/useFirestore';
-import { Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ActivityModal from './ActivityModal';
 import ActivityCard from './ActivityCard';
@@ -146,6 +146,8 @@ const DaysBoard = ({trip}) => {
     }
   };
   return (
+    <Box>
+      <Typography variant="h2" sx={{marginLeft: '50px'}}>Activities by Days</Typography>
 
       <DragDropContext
         onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
@@ -186,6 +188,7 @@ const DaysBoard = ({trip}) => {
           </ActivitiesColumnStyles>
         </Container>
       </DragDropContext>
+    </Box>
   );
 };
 
