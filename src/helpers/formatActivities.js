@@ -8,12 +8,8 @@ export const formatActivitiesForBoard = (trip) => {
     const days = Object.keys(trip.days);
     
     days.forEach(day => {
-        console.log('TRIPDAYS', day, trip.days[day])
         columns[day] = {title: day, items: trip.days[day].map( activity => ({id: `${day} - ${activity.pos}`, Task: activity.activity}))}
     });
-
-    console.log(' UNSORTED COLUMNS',JSON.stringify(columns));
-    console.log(' SORTED COLUMNS',JSON.stringify(sortDays(columns)));
 
     return sortDays(columns);
 }

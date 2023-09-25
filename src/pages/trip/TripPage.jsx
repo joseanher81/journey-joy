@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDocument } from "../../hooks/useDocument";
 import DaysBoard from "./Board/DaysBoard";
 import Head from "./Head";
+import Comments from "./Comments/Comments";
 
 
 export default function TripPage() {
@@ -15,7 +16,6 @@ export default function TripPage() {
 
     // Loading message
     if(!trip) return <Typography>Loading...</Typography>
-    if(trip) console.log('TRIP', JSON.stringify(trip))
 
     return (
         <main>
@@ -25,16 +25,19 @@ export default function TripPage() {
             {/* MIDDLE SECTION */}
             <Grid container spacing={3}>
                 <Grid item xs={9}>
-                    <Paper elevation={3}>
+                    <Paper >
                     <Typography variant="h6">Test</Typography>
-                    {/* BOARD */}
+                        {/* BOARD */}
                         <DaysBoard trip={trip} />
                     </Paper>
                 </Grid>
-                <Grid item xs={3}>
-                    <Paper elevation={3}>
-                    {/* COMMENTS */}
-                    <Typography variant="h6">Test 2</Typography>
+                <Grid item xs={3}
+                    paddingLeft='20px'
+                    paddingRight='20px'
+                >
+                    <Paper elevation={0}>
+                        {/* COMMENTS */}
+                        <Comments trip={trip}/>
                     </Paper>
                 </Grid>
             </Grid>

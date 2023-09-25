@@ -17,7 +17,6 @@ export default function DashboardPage({searchQuery, setSearchQuery}) {
 
   // Update trip list according to search on topbar
   useEffect(() => {
-    console.log('entra')
     if(documents) {
       let filtered = documents.filter(doc => {
         return doc.title.toLowerCase().includes(searchQuery) || doc.place.toLowerCase().includes(searchQuery)
