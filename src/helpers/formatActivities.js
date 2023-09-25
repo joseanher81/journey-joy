@@ -29,6 +29,15 @@ export const formatActivitiesForFirebase = (columns) => {
     return update;
 }
 
+export const createActivityDays = (days) => {
+    const result = {};
+    for(let i = 1; i <= days; i++) {
+        result['Day - '+i] = [];
+    }
+    
+    return result;
+}
+
 const sortDays = (data) => {
     return Object.keys(data)
       .sort() // Ordena las claves alfabéticamente

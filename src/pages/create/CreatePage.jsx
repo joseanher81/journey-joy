@@ -8,6 +8,10 @@ import { timestamp } from '../../firebase/config';
 import { useFirestore } from "../../hooks/useFirestore";
 import { useNavigate } from "react-router-dom";
 import { loadPlacePicture } from "../../helpers/loadPlacePicture";
+import { differenceInDays } from "date-fns";
+import { createActivityDays } from "../../helpers/formatActivities";
+
+
 
 export default function CreatePage() {
 
@@ -59,6 +63,9 @@ export default function CreatePage() {
         // Get image for place
         const pictureUrl = await loadPlacePicture(place);
        
+        // Calc travel days
+        const travelDuration = differenceInDays(new Date(endDate), new Date(startDate)) + 1; // Need to add 1 to include starting and ending day
+        
 
         // Document to be saved
         const trip = {
@@ -66,6 +73,8 @@ export default function CreatePage() {
             place,
             pictureUrl,
             description,
+            travelDuration,
+            days: createActivityDays(travelDuration),
             startDate: timestamp.fromDate(new Date(startDate)),
             endDate: timestamp.fromDate(new Date(endDate))
         }

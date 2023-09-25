@@ -15,8 +15,6 @@ export default function TripItem({trip}) {
       });
     
     const upperCaseTimeDistance = formattedTimeDistance.charAt(0).toUpperCase() + formattedTimeDistance.slice(1);
-
-    const travelDuration = differenceInDays(trip.endDate.toDate(), trip.startDate.toDate());
   
 
   return (
@@ -45,7 +43,7 @@ export default function TripItem({trip}) {
                     <CalendarMonthOutlined color="secondary" fontSize="small" sx={{ marginRight: '10px' }} /> {upperCaseTimeDistance}
                 </Typography>
                 <Typography gutterBottom variant="h6" component="div" sx={{ display: 'flex', alignItems: 'center' }}>
-                    <AccessTimeOutlined color="secondary" fontSize="small" sx={{ marginRight: '10px' }} /> {travelDuration} {travelDuration > 1 ? 'días' : 'día'}
+                    <AccessTimeOutlined color="secondary" fontSize="small" sx={{ marginRight: '10px' }} /> {trip.travelDuration} {trip.travelDuration > 1 ? 'días' : 'día'}
                 </Typography>
 
                 <Typography sx={{ marginTop: '10px'}}>
