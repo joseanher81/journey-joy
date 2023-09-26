@@ -1,13 +1,17 @@
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import TripsList from "../../components/TripsList";
-import { useCollection } from "../../hooks/useCollection";
+import { useCollection, useCollectionComplexQuery } from "../../hooks/useCollection";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useEffect, useState } from "react";
 
 
 export default function DashboardPage({searchQuery, setSearchQuery}) {
   const {user} = useAuthContext();
-  const {documents,error} = useCollection('trips', null, 'startDate');
+  const queryConfig = [
+    {field: 'createdBy', operator: '==', value: user.uid},
+    {field: 'companions', operator: 'array-contains', value: user.uid}
+  ];
+  const {documents,error} = useCollection('trips', queryConfig, 'startDate');
   const [trips, setTrips] = useState(null);
 
   // Clean search query on first time (MAYBE THIS COULD BE SOLVED IN A BETTER WAY)
