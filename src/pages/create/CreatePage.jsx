@@ -1,5 +1,5 @@
 import { useTheme } from "@emotion/react";
-import { Box, Button, Container, Grid, TextField, Typography } from "@mui/material";
+import { Autocomplete, Box, Button, Container, Grid, TextField, Typography } from "@mui/material";
 import Paper from '@mui/material/Paper';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { tokens } from "../../theme";
@@ -10,21 +10,29 @@ import { useNavigate } from "react-router-dom";
 import { loadPlacePicture } from "../../helpers/loadPlacePicture";
 import { differenceInDays } from "date-fns";
 import { createActivityDays } from "../../helpers/formatActivities";
-
-
+import { useCollection } from "../../hooks/useCollection";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 export default function CreatePage() {
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const navigate = useNavigate();
+    const {user} = useAuthContext();
     const { addDocument, response } = useFirestore('trips');
+    const {documents: companionsOptions, error} = useCollection('users');
     const [formError, setFormError] = useState(null);
-
 
     // Dates state
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
+
+    // Companions selection
+    const [selectedCompanions, setSelectedCompanions] = useState([]);
+
+    const handleSelectCompanionsChange = (event, newValue) => {
+      setSelectedCompanions(newValue);
+    };
 
     // SUBMIT
     const handleSubmit = async (e) => {
@@ -74,17 +82,23 @@ export default function CreatePage() {
             pictureUrl,
             description,
             travelDuration,
+            createdBy: user.uid,
+            companions: selectedCompanions.map( companion => companion.id),
             days: createActivityDays(travelDuration),
             startDate: timestamp.fromDate(new Date(startDate)),
             endDate: timestamp.fromDate(new Date(endDate))
         }
 
         // Save project in Firestore
-        await addDocument(trip);
+       await addDocument(trip);
         if(!response.error) navigate('/');
 
         
     };
+    // END SUBMIT
+
+    // Not continue until companions list is loaded
+    if(!companionsOptions) return;
 
     return (
         <main>
@@ -184,7 +198,8 @@ export default function CreatePage() {
                                         borderColor: colors.greenAccent[400],
                                     },
                                     },
-                                    'marginTop': '16px'
+                                    'marginTop': '16px',
+                                    'marginBottom': '8px'
                                 }}
                             />
        
@@ -203,7 +218,8 @@ export default function CreatePage() {
                                         borderColor: colors.greenAccent[400],
                                     },
                                     },
-                                    'marginTop': '16px'
+                                    'marginTop': '16px',
+                                    'marginBottom': '8px'
                                 }}
                             /> 
             
@@ -228,6 +244,36 @@ export default function CreatePage() {
                                         borderColor: colors.greenAccent[400],
                                     },
                                 },
+                            }}
+                        />
+
+                        <Autocomplete
+                            multiple
+                            id="companions"
+                            name="companions"
+                            options={companionsOptions.filter(c => c.id !== user.uid)}
+                            getOptionLabel={(companion) => companion.displayName} 
+                            value={selectedCompanions}
+                            onChange={handleSelectCompanionsChange}
+                            renderInput={(params) => (
+                                <TextField
+                                {...params}
+                                variant="outlined"
+                                label="Selecciona compañeros"
+                                placeholder="Selecciona compañeros"
+                                />
+                            )}
+                            sx={{
+                                    '& label.Mui-focused': {
+                                    color: colors.greenAccent[400],
+                                    },
+                                    '& .MuiOutlinedInput-root': {
+                                    '&.Mui-focused fieldset': {
+                                        borderColor: colors.greenAccent[400],
+                                    },
+                                    },
+                                    'marginTop': '16px',
+                                    'marginBottom': '8px'
                             }}
                         />
 
