@@ -11,7 +11,7 @@ export default function CommentsList({comments}) {
 
   return (
     <>
-      {comments.length > 0 && comments.map( comment => (
+      {comments?.length > 0 && comments.map( comment => (
         <Card 
           key={comment.id}
           sx={{ 
