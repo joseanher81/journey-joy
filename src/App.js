@@ -12,6 +12,7 @@ import DashboardPage from "./pages/dashboard/DashboardPage";
 import CreatePage from "./pages/create/CreatePage";
 import TripPage from "./pages/trip/TripPage";
 import { useState } from "react";
+import OverviewPage from "./pages/overview/OverviewPage";
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
                     <Route path="/" element={ user ? <DashboardPage searchQuery={searchQuery} setSearchQuery={setSearchQuery}/> : <Navigate to='/login' />} />
                     <Route path="/new" element={ user ? <CreatePage /> : <Navigate to='/login' />} />
                     <Route path="/trips/:id" element={ user ? <TripPage /> : <Navigate to='/login' />} />
+                    <Route path="/overview" element={ user ? <OverviewPage /> : <Navigate to='/login' />} />
                     <Route path="/signup" element={ !user ? <SignupPage /> : <Navigate to='/' />} />
                     <Route path="/login" element={ !user ? <LoginPage /> : <Navigate to='/' />} />   
                   </Routes>

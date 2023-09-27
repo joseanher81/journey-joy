@@ -1,5 +1,6 @@
 import { Box, useTheme } from "@mui/material";
 import { AddCircleOutlineOutlined, SubjectOutlined } from "@mui/icons-material";
+import QueryStatsOutlinedIcon from '@mui/icons-material/QueryStatsOutlined';
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
 import { tokens } from "../theme";
 import { useAuthContext } from "../hooks/useAuthContext";
@@ -13,18 +14,22 @@ export default function Sidebar() {
   const {user} = useAuthContext();
   const navigate = useNavigate();
 
-
   const menuItems = [
     { 
       text: 'My Trips', 
-      icon: <SubjectOutlined color="secondary" />, 
+      icon: <SubjectOutlined color="secondary" fontSize="large"/>, 
       path: '/' 
     },
     { 
       text: 'Create Trip', 
-      icon: <AddCircleOutlineOutlined color="secondary" />, 
+      icon: <AddCircleOutlineOutlined color="secondary" fontSize="large"/>, 
       path: '/new' 
     },
+    { 
+      text: 'Overview', 
+      icon: <QueryStatsOutlinedIcon color="secondary" fontSize="large"/>, 
+      path: '/overview' 
+    }
   ];
 
   return (
@@ -69,9 +74,11 @@ export default function Sidebar() {
                 button 
                 key={item.text} 
                 onClick={()=>navigate(item.path)}
+                sx={{marginTop: '15px'}}
               >
                   <ListItemIcon>{item.icon}</ListItemIcon>
-                  <ListItemText primary={item.text} />
+                  {/* <ListItemText primary={item.text} /> */}
+                  <Typography variant="h5">{item.text}</Typography>
               </ListItem>
             ))}
           </List>
