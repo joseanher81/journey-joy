@@ -22,6 +22,7 @@ export default function CreatePage() {
     const { addDocument, response } = useFirestore('trips');
     const {documents: companionsOptions, error} = useCollection('users');
     const [formError, setFormError] = useState(null);
+    console.log(companionsOptions)
 
     // Dates state
     const [startDate, setStartDate] = useState(null);

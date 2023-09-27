@@ -50,10 +50,6 @@ export default function NewComment({handleAddNewComment}) {
                         },
                     }}
                 />
-                {/* <FormControlLabel
-                    control={<Checkbox value="remember" color="primary" />}
-                    label="Remember me"
-                /> */}
                 {!isPending && (
                     <Button
                     type="submit"

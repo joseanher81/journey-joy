@@ -32,7 +32,7 @@ const ActivitiesColumnStyles = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  min-height: 80vh;
+  min-height: 50vh;
 `;
 
 const Title = styled.span`
