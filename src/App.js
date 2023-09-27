@@ -28,7 +28,7 @@ function App() {
             {isAuthReady && (
               <>
                 {user && <Sidebar />}
-                <main className="content">
+                <main className="content" style={{'background-color': theme.palette.background}}>
                   {user && <Topbar setSearchQuery={setSearchQuery}/>}
                   <Routes>
                     <Route path="/" element={ user ? <DashboardPage searchQuery={searchQuery} setSearchQuery={setSearchQuery}/> : <Navigate to='/login' />} />

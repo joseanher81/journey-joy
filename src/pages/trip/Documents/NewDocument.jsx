@@ -37,7 +37,7 @@ export default function NewDocument({openModal, handleCloseModal, handleAddDocum
         bgcolor: 'background.paper',
         border: `4px solid ${colors.greenAccent[700]}`,
         borderRadius: '5px',
-        boxShadow: 24,
+        boxShadow: 14,
         p: 4,
     };
 
@@ -89,8 +89,8 @@ export default function NewDocument({openModal, handleCloseModal, handleAddDocum
         <Modal
             open={openModal}
             onClose={handleCloseModal}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
+            aria-labelledby="modal-new-document"
+            aria-describedby="modal-create-new-document"
         >
             <Box sx={style}>
                 <Grid item xs={12}>

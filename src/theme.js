@@ -142,7 +142,8 @@ export const themeSettings = (mode) => {
             },
             background: {
               default: colors.primary[500],
-            },
+              paper: colors.primary[500],
+            }
           }
         : {
             // palette values for light mode
@@ -159,7 +160,7 @@ export const themeSettings = (mode) => {
             },
             background: {
               default: "#fcfcfc",
-            },
+            }
           }),
     },
     typography: {

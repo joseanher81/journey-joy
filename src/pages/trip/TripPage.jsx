@@ -6,10 +6,11 @@ import Head from "./Head";
 import Comments from "./Comments/Comments";
 import Companions from "./Companions";
 import Documents from "./Documents/Documents";
+import { useTheme } from "@emotion/react";
 
 
 export default function TripPage() {
-
+    const theme = useTheme();
     const { id } = useParams();
     const { document: trip, error } = useDocument('trips', id);
 
@@ -20,7 +21,7 @@ export default function TripPage() {
     if(!trip) return <Typography>Loading...</Typography>
 
     return (
-        <main>
+        <main style={{'background-color': theme.palette.background}}> 
             {/* HEAD SECTION */}
             <Head trip={trip}/>
 

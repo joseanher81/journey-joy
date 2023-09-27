@@ -179,7 +179,7 @@ const DaysBoard = ({trip}) => {
                         Add activity 
                       </Button>
 
-                      <ActivityModal openModal={openModal} handleCloseModal={handleCloseModal} handleAddActivity={handleAddActivity}/>
+                      
                     </ActivitiesList>
                   )}
                 </Droppable>
@@ -188,6 +188,7 @@ const DaysBoard = ({trip}) => {
           </ActivitiesColumnStyles>
         </Container>
       </DragDropContext>
+      <ActivityModal openModal={openModal} handleCloseModal={handleCloseModal} handleAddActivity={handleAddActivity}/>
     </Box>
   );
 };

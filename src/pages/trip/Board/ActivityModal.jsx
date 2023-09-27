@@ -14,12 +14,13 @@ export default function ActivityModal({openModal, handleCloseModal, handleAddAct
         setActivityDescription(e.target.value);
     }
 
+    
     return (
         <Modal
             open={openModal}
             onClose={handleCloseModal}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
+            aria-labelledby="modal-new-activity"
+            aria-describedby="modal-create-new-activity"
         >
             <Box sx={{
                 position: 'absolute',
@@ -28,11 +29,12 @@ export default function ActivityModal({openModal, handleCloseModal, handleAddAct
                 transform: 'translate(-50%, -50%)',
                 width: 400,
                 bgcolor: 'background.paper',
-                border: '2px solid #000',
-                boxShadow: 24,
+                border: `4px solid ${colors.greenAccent[700]}`,
+                borderRadius: '5px',
+                boxShadow: 14,
                 p: 4,
             }}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
+                <Typography id="modal-modal-title" variant="h6" component="h2" color={colors.greenAccent[400]}>
                     Add New Activity
                 </Typography>
             
