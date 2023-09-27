@@ -3,18 +3,18 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 import Typography from '@mui/material/Typography';
 import { useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import MapImage from '../../assets/images/signup.jpeg';
 import { useSignup } from '../../hooks/useSignup';
+import { FileUploader } from "react-drag-drop-files";
 
 
 function Copyright(props) {
@@ -27,11 +27,13 @@ function Copyright(props) {
   );
 }
 
+const thumbnailFileTypes = ["JPG", "JPEG", "PNG"];
 
 export default function SignupPage() {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [thumbnail, setThumbnail] = useState(null);
+    const [thumbnailUrl, setThumbnailUrl]  = useState("");
     const [thumbnailError, setThumbnailError] = useState(null);
     const {error, isPending, signUp} = useSignup();
 
@@ -50,11 +52,13 @@ export default function SignupPage() {
     };
 
     // File input handle
-    const handleFileChange  = (e) => {
+    const handleFileChange  = (file) => {
+      console.log('entra')
       setThumbnail(null); // First reset any previous file
       setThumbnailError(null); // Reset any previous error
+      
 
-      let selected = e.target.files[0];
+      let selected = file;
 
       // File validations
       if(!selected) {
@@ -65,13 +69,15 @@ export default function SignupPage() {
         setThumbnailError('Selected file must be an image');
         return;
       }
-      if(selected.size > 100000) {
-        setThumbnailError('Image file size must be less than 100kb');
+      if(selected.size > 500000) {
+        setThumbnailError('Image file size must be less than 500kb');
         return;
       }
 
       setThumbnail(selected);
-      console.log('Thumbnail updated');
+      setThumbnailUrl(`url(${URL.createObjectURL(selected)})`);
+      console.log('Thumbnail updated', thumbnailUrl);
+      console.log(thumbnailError)
     }
 
   return (
@@ -167,7 +173,55 @@ export default function SignupPage() {
                     },
                 }}
               />
-              <TextField
+
+              <FileUploader
+                required
+                handleChange={handleFileChange}
+                types={thumbnailFileTypes}
+                hoverTitle=" "
+                dropMessageStyle={{ border: "none" }}
+              >
+                <Box
+
+                  sx={{
+                    width: "100%",
+                    height: "250px",
+                    cursor: "pointer",
+                    marginTop: "20px",
+                    border: `2px dashed ${colors.greenAccent[400]}`, 
+                    borderRadius: '10px',
+                    ...(thumbnail && {
+                      backgroundImage: thumbnailUrl,
+                      backgroundSize: "contain",
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "center"
+                    })
+                  }}
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  backgroundColor={colors.primary}
+                  textAlign="center"
+                >
+                    {!thumbnail && (
+                        <Box
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="center"
+                            flexDirection="column"
+                            padding="20px"
+                        >
+                            <AddPhotoAlternateOutlinedIcon sx={{fontSize: '8vh', color: colors.grey[500]}}/>
+                            <Typography variant="h5" color={colors.grey[500]}>Upload or drop an image here</Typography>
+
+                        </Box>
+                    
+                    )}
+                </Box>
+              </FileUploader>    
+
+
+              {/* <TextField
                 type="file"
                 margin="normal"
                 required
@@ -192,7 +246,7 @@ export default function SignupPage() {
                         },
                     },
                 }}
-              />
+              /> */}
               {/* <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"

@@ -1,9 +1,12 @@
 import { useTheme } from "@emotion/react";
 import { Box, Button, FormControl, FormControlLabel, FormLabel, Grid, Modal, Radio, RadioGroup, TextField, Typography } from "@mui/material";
+import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
 import FlightTakeoffOutlinedIcon from '@mui/icons-material/FlightTakeoffOutlined';
 import SubwayOutlinedIcon from '@mui/icons-material/SubwayOutlined';
 import DriveEtaOutlinedIcon from '@mui/icons-material/DriveEtaOutlined';
 import LocalActivityOutlinedIcon from '@mui/icons-material/LocalActivityOutlined';
+import FileDownloadDoneOutlinedIcon from '@mui/icons-material/FileDownloadDoneOutlined';
+import { FileUploader } from "react-drag-drop-files";
 import { tokens } from "../../../theme";
 import { useState } from "react";
 
@@ -14,6 +17,8 @@ const documentTypes = [
     {value: 'car', text: 'Car rental', icon: <DriveEtaOutlinedIcon sx={{ marginLeft: '20px'}} fontSize="large"/>},
     {value: 'ticket', text: 'Event ticket', icon: <LocalActivityOutlinedIcon sx={{ marginLeft: '20px'}} fontSize="large"/>},
 ];
+
+const documentFileTypes = ["JPG", "JPEG", "PNG", "DOC", "DOCX", "PDF"];
 
 export default function NewDocument({openModal, handleCloseModal, handleAddDocuments}) {
     const theme = useTheme();
@@ -58,11 +63,12 @@ export default function NewDocument({openModal, handleCloseModal, handleAddDocum
     }
 
      // File input handle
-     const handleFileChange  = (e) => {
+     const handleFileChange  = (file) => {
         setFile(null); // First reset any previous file
         setFileError(null); // Reset any previous error
+        console.log(file)
   
-        let selected = e.target.files[0];
+        let selected = file;
   
         // File validations
         if(!selected) {
@@ -88,7 +94,7 @@ export default function NewDocument({openModal, handleCloseModal, handleAddDocum
         >
             <Box sx={style}>
                 <Grid item xs={12}>
-                    <Typography variant="h4">Add New Document</Typography>
+                    <Typography variant="h4" color={colors.greenAccent[400]}>Add New Document</Typography>
                 </Grid>
                 <Grid item xs={12} sx={{marginTop: '20px'}}>
                     {/* NEW COMMENT FORM*/}
@@ -108,7 +114,7 @@ export default function NewDocument({openModal, handleCloseModal, handleAddDocum
                                     value={doc.value} 
                                     control={<Radio />} 
                                     label={
-                                        <Box display="flex" alignItems="center">
+                                        <Box display="flex" alignItems="center" color={colors.grey[500]}>
                                             <Typography variant="body1">{doc.text}</Typography>
                                             {doc.icon}                                          
                                         </Box>
@@ -141,32 +147,52 @@ export default function NewDocument({openModal, handleCloseModal, handleAddDocum
                             }}
                         />
 
-                        <TextField
-                            type="file"
-                            margin="normal"
+                        <FileUploader
                             required
-                            fullWidth
-                            name="documentFile"
-                            id="documentFile"
-                            label="Document file"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            inputProps={{
-                                accept: '.jpeg, .jpg, .png, .doc, .docx, .pdf', 
-                                onChange: handleFileChange, 
-                            }}
-                            sx={{
-                                '& label.Mui-focused': {
-                                    color: colors.greenAccent[400] ,
-                                },
-                                '& .MuiOutlinedInput-root': {
-                                    '&.Mui-focused fieldset': {
-                                        borderColor: colors.greenAccent[400],
-                                    },
-                                },
-                            }}
-                        />        
+                            handleChange={handleFileChange}
+                            types={documentFileTypes}
+                            hoverTitle=" "
+                            dropMessageStyle={{ border: "none" }}
+                        >
+                            <Box
+                                sx={{
+                                    width: "100%",
+                                    height: "150px",
+                                    cursor: "pointer",
+                                    marginTop: "20px",
+                                    border: `2px dashed ${colors.greenAccent[400]}`, 
+                                    borderRadius: '10px',
+                                    
+                                }}
+                                display="flex"
+                                alignItems="center"
+                                justifyContent="center"
+                                backgroundColor={colors.primary}
+                                textAlign="center"
+                            >
+                                <Box
+                                    display="flex"
+                                    alignItems="center"
+                                    justifyContent="center"
+                                    flexDirection="column"
+                                    padding="20px"
+                                >
+                                    {!file && (
+                                        <>
+                                            <PostAddOutlinedIcon sx={{fontSize: '8vh', color: colors.grey[500]}}/>
+                                            <Typography variant="h5" color={colors.grey[500]}>Upload or drop a document here</Typography>
+                                        </>
+                                    )}
+                                    {file && (
+                                        <>
+                                            <FileDownloadDoneOutlinedIcon sx={{fontSize: '8vh', color: colors.grey[500]}}/>
+                                            <Typography variant="h5" color={colors.grey[500]}>{file.name}</Typography>
+                                        </>
+                                    )}
+                                </Box>
+                                
+                            </Box>
+                        </FileUploader> 
 
                         {true && (
                             <Button
