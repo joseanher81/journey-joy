@@ -1,4 +1,5 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
+import {TripsContextProvider } from './context/TripsContext';
 import { ColorModeContext, useMode } from "./theme";
 import { useAuthContext } from "./hooks/useAuthContext";
 import { Navigate, Route, Routes } from "react-router-dom";
@@ -28,18 +29,37 @@ function App() {
           <div className="app">
             {isAuthReady && (
               <>
-                {user && <Sidebar />}
-                <main className="content" style={{'background-color': theme.palette.background}}>
-                  {user && <Topbar setSearchQuery={setSearchQuery}/>}
-                  <Routes>
-                    <Route path="/" element={ user ? <DashboardPage searchQuery={searchQuery} setSearchQuery={setSearchQuery}/> : <Navigate to='/login' />} />
-                    <Route path="/new" element={ user ? <CreatePage /> : <Navigate to='/login' />} />
-                    <Route path="/trips/:id" element={ user ? <TripPage /> : <Navigate to='/login' />} />
-                    <Route path="/overview" element={ user ? <OverviewPage /> : <Navigate to='/login' />} />
-                    <Route path="/signup" element={ !user ? <SignupPage /> : <Navigate to='/' />} />
-                    <Route path="/login" element={ !user ? <LoginPage /> : <Navigate to='/' />} />   
-                  </Routes>
-                </main>
+                {/* ROUTES WHEN There is an user logged in */}
+                {user && (
+                  <>
+                    <Sidebar />
+                    <main className="content" style={{'backgroundColor': theme.palette.background}}>
+                      <Topbar setSearchQuery={setSearchQuery}/>
+                  
+                      <TripsContextProvider>
+                        <Routes>
+                          <Route path="/" element={ <DashboardPage searchQuery={searchQuery} setSearchQuery={setSearchQuery}/> } />
+                          <Route path="/new" element={ <CreatePage /> } />
+                          <Route path="/trips/:id" element={ <TripPage /> } />
+                          <Route path="/overview" element={ <OverviewPage /> } />
+                          <Route path="*" element={ <Navigate to='/' />} />
+                        </Routes>
+                      </TripsContextProvider>
+
+                    </main>
+                  </>
+                )}
+
+                {/* ROUTES WHEN NO user logged in */}  
+                {!user && (
+                  <main className="content" style={{'backgroundColor': theme.palette.background}}>
+                    <Routes>
+                      <Route path="/signup" element={ <SignupPage /> } />
+                      <Route path="/login" element={ <LoginPage /> } />   
+                      <Route path="*" element={ <Navigate to='/login' />} />
+                    </Routes>
+                  </main>
+                )}
               </>
             )}
           </div>
