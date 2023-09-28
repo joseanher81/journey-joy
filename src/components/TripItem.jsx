@@ -32,7 +32,7 @@ export default function TripItem({trip}) {
             />
             <CardContent sx={{ flexGrow: 1 }}>
 
-                <Typography gutterBottom variant="h4" component="h2">
+                <Typography gutterBottom variant="h4" component="h2" fontWeight="bold">
                     {trip.title}
                 </Typography>
 
@@ -46,7 +46,7 @@ export default function TripItem({trip}) {
                     <AccessTimeOutlined color="secondary" fontSize="small" sx={{ marginRight: '10px' }} /> {trip.travelDuration} {trip.travelDuration > 1 ? 'días' : 'día'}
                 </Typography>
 
-                <Typography sx={{ marginTop: '10px'}}>
+                <Typography sx={{ marginTop: '10px'}} variant="body2" component="div">
                     {trip.description}
                 </Typography>
                 

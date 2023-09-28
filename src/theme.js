@@ -163,33 +163,60 @@ export const themeSettings = (mode) => {
             }
           }),
     },
-    typography: {
-      fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-      fontSize: 12,
-      h1: {
-        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-        fontSize: 40,
-      },
-      h2: {
-        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-        fontSize: 32,
-      },
-      h3: {
-        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-        fontSize: 24,
-      },
-      h4: {
-        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-        fontSize: 20,
-      },
-      h5: {
-        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+    // typography: {
+    //   fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+    //   fontSize: 12,
+    //   h1: {
+    //     fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+    //     fontSize: 40,
+    //   },
+    //   h2: {
+    //     fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+    //     fontSize: 32,
+    //   },
+    //   h3: {
+    //     fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+    //     fontSize: 24,
+    //   },
+    //   h4: {
+    //     fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+    //     fontSize: 20,
+    //   },
+    //   h5: {
+    //     fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+    //     fontSize: 16,
+    //   },
+    //   h6: {
+    //     fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
+    //     fontSize: 14,
+    //   },
+      typography: {
+        fontFamily: ["Quicksand", "sans-serif"].join(","),
         fontSize: 16,
-      },
-      h6: {
-        fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-        fontSize: 14,
-      },
+        h1: {
+          fontFamily: ["Quicksand", "sans-serif"].join(","),
+          fontSize: 42,
+        },
+        h2: {
+          fontFamily: ["Quicksand", "sans-serif"].join(","),
+          fontSize: 34,
+        },
+        h3: {
+          fontFamily: ["Quicksand", "sans-serif"].join(","),
+          fontSize: 26,
+        },
+        h4: {
+          fontFamily: ["Quicksand", "sans-serif"].join(","),
+          fontSize: 22,
+        },
+        h5: {
+          fontFamily: ["Quicksand", "sans-serif"].join(","),
+          fontSize: 18,
+        },
+        h6: {
+          fontFamily: ["Quicksand", "sans-serif"].join(","),
+          fontSize: 16,
+        },
     },
   };
 };
