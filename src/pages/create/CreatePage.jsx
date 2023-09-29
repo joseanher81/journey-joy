@@ -3,7 +3,7 @@ import { Autocomplete, Box, Button, Container, Grid, TextField, Typography } fro
 import Paper from '@mui/material/Paper';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { tokens } from "../../theme";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { timestamp } from '../../firebase/config';
 import { useFirestore } from "../../hooks/useFirestore";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,9 @@ import { createActivityDays } from "../../helpers/formatActivities";
 import { useCollection } from "../../hooks/useCollection";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useGeolocation } from "../../hooks/useGeolocation";
+import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 export default function CreatePage() {
 
@@ -30,6 +33,9 @@ export default function CreatePage() {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
 
+    useEffect(()=> {
+        console.log('ENDDATE', endDate)
+    }, [endDate])
     // Companions selection
     const [selectedCompanions, setSelectedCompanions] = useState([]);
 
@@ -191,12 +197,33 @@ export default function CreatePage() {
                     
 
                         <Box sx={{display: "flex", justifyContent: "space-between"}}>
-                            <DatePicker
+
+                            <DesktopDatePicker 
                                 required
                                 label="Fecha de inicio"
+                                format="DD/MM/YYYY"
                                 value={startDate}
                                 onChange={(date) => setStartDate(date)}
-                                inputFormat="dd/MM/yyyy"
+                                sx={{
+                                    '& label.Mui-focused': {
+                                    color: colors.greenAccent[400],
+                                    },
+                                    '& .MuiOutlinedInput-root': {
+                                    '&.Mui-focused fieldset': {
+                                        borderColor: colors.greenAccent[400],
+                                    },
+                                    },
+                                    'marginTop': '16px',
+                                    'marginBottom': '8px'
+                                }}
+                            />      
+
+                            <DesktopDatePicker 
+                                required
+                                label="Fecha de finalización"
+                                format="DD/MM/YYYY"
+                                value={endDate}
+                                onChange={(date) => setEndDate(date)}
                                 sx={{
                                     '& label.Mui-focused': {
                                     color: colors.greenAccent[400],
@@ -210,26 +237,6 @@ export default function CreatePage() {
                                     'marginBottom': '8px'
                                 }}
                             />
-       
-                            <DatePicker
-                                required
-                                label="Fecha de finalización"
-                                value={endDate}
-                                onChange={(date) => setEndDate(date)}
-                                inputFormat="dd/MM/yyyy"
-                                sx={{
-                                    '& label.Mui-focused': {
-                                    color: colors.greenAccent[400],
-                                    },
-                                    '& .MuiOutlinedInput-root': {
-                                    '&.Mui-focused fieldset': {
-                                        borderColor: colors.greenAccent[400],
-                                    },
-                                    },
-                                    'marginTop': '16px',
-                                    'marginBottom': '8px'
-                                }}
-                            /> 
                         </Box>           
                        
                         
