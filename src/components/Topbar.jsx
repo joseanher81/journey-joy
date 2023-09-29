@@ -18,7 +18,7 @@ const Topbar = ({setSearchQuery}) => {
   const location = useLocation();
 
   return (
-    <Box display="flex" justifyContent="space-between" p={2} borderBottom={`1px solid rgba(0, 0, 0, 0.12)`}>
+    <Box display="flex" justifyContent={location.pathname === '/' ? "space-between" : "flex-end"} p={2} borderBottom={`1px solid rgba(0, 0, 0, 0.12)`}>
       {/* SEARCH BAR: Only shown in dashboard */}
       { location.pathname === '/' && <Search setSearchQuery={setSearchQuery}/>}
 
