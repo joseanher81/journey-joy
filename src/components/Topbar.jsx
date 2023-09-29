@@ -1,7 +1,7 @@
 import { Box, IconButton, useTheme } from "@mui/material";
 import { useContext } from "react";
 import { useLocation } from 'react-router-dom';
-import { ColorModeContext } from "../theme";
+import { ColorModeContext, tokens } from "../theme";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
@@ -12,12 +12,13 @@ import Search from "./Search";
 
 const Topbar = ({setSearchQuery}) => {
   const theme = useTheme();
+  const colors = tokens(theme.palette.mode)
   const colorMode = useContext(ColorModeContext);
   const {logout, isPending} = useLogout();
   const location = useLocation();
 
   return (
-    <Box display="flex" justifyContent="space-between" p={2}>
+    <Box display="flex" justifyContent="space-between" p={2} borderBottom={`1px solid rgba(0, 0, 0, 0.12)`}>
       {/* SEARCH BAR: Only shown in dashboard */}
       { location.pathname === '/' && <Search setSearchQuery={setSearchQuery}/>}
 
