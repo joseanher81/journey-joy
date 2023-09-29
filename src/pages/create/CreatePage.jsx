@@ -148,7 +148,7 @@ export default function CreatePage() {
                     }}
                 >
         
-                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1, width: "40%" }}>
                         <TextField
                             margin="normal"
                             required
@@ -190,7 +190,7 @@ export default function CreatePage() {
                         />
                     
 
-
+                        <Box sx={{display: "flex", justifyContent: "space-between"}}>
                             <DatePicker
                                 required
                                 label="Fecha de inicio"
@@ -230,7 +230,7 @@ export default function CreatePage() {
                                     'marginBottom': '8px'
                                 }}
                             /> 
-            
+                        </Box>           
                        
                         
 
