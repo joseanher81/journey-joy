@@ -11,7 +11,6 @@ export default function Head({trip}) {
     <Box
         sx={{
             bgcolor: 'background.paper',
-            pt: 8,
             pb: 6,
         }}
     >
@@ -22,7 +21,8 @@ export default function Head({trip}) {
                 backgroundImage: `url("${trip.pictureUrl}")`, 
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                height: '400px', 
+                height: '450px', 
+                borderRadius: 0
             }}
             >
             <Grid
