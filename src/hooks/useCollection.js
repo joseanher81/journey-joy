@@ -16,7 +16,7 @@ export const useCollection = (col, _query, _orderBy) => {
     useEffect(() => {
         // Referencia a la colección
         let collectionRef = collection(db, col);
-
+        console.log('Q', q)
         if(q) {
             if(q.length === 1) { // Single query
                 console.log('consulta sencilla');

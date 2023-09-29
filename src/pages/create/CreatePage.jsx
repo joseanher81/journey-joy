@@ -12,6 +12,7 @@ import { differenceInDays } from "date-fns";
 import { createActivityDays } from "../../helpers/formatActivities";
 import { useCollection } from "../../hooks/useCollection";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useGeolocation } from "../../hooks/useGeolocation";
 
 export default function CreatePage() {
 
@@ -21,6 +22,7 @@ export default function CreatePage() {
     const {user} = useAuthContext();
     const { addDocument, response } = useFirestore('trips');
     const {documents: companionsOptions, error} = useCollection('users');
+    const { findISObyPlace } = useGeolocation();
     const [formError, setFormError] = useState(null);
     console.log(companionsOptions)
 
@@ -75,6 +77,8 @@ export default function CreatePage() {
         // Calc travel days
         const travelDuration = differenceInDays(new Date(endDate), new Date(startDate)) + 1; // Need to add 1 to include starting and ending day
         
+        // Get country ISO (needed for map representation)
+        const ISO = await findISObyPlace(place);
 
         // Document to be saved
         const trip = {
@@ -83,12 +87,15 @@ export default function CreatePage() {
             pictureUrl,
             description,
             travelDuration,
+            ISO,
             createdBy: user.uid,
             companions: selectedCompanions.map( companion => companion.id),
             days: createActivityDays(travelDuration),
             startDate: timestamp.fromDate(new Date(startDate)),
             endDate: timestamp.fromDate(new Date(endDate))
         }
+
+        console.log("AQUI VAS A VIAJAR", trip);
 
         // Save project in Firestore
        await addDocument(trip);

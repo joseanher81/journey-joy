@@ -1,17 +1,16 @@
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import TripsList from "../../components/TripsList";
-import { useCollection, useCollectionComplexQuery } from "../../hooks/useCollection";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useEffect, useState } from "react";
+import { useTripsContext } from "../../hooks/useTripsContext";
 
 
 export default function DashboardPage({searchQuery, setSearchQuery}) {
+
+  const { tripsList } = useTripsContext();
+
   const {user} = useAuthContext();
-  const queryConfig = [
-    {field: 'createdBy', operator: '==', value: user.uid},
-    {field: 'companions', operator: 'array-contains', value: user.uid}
-  ];
-  const {documents,error} = useCollection('trips', queryConfig, 'startDate');
+
   const [trips, setTrips] = useState(null);
 
   // Clean search query on first time (MAYBE THIS COULD BE SOLVED IN A BETTER WAY)
@@ -21,15 +20,13 @@ export default function DashboardPage({searchQuery, setSearchQuery}) {
 
   // Update trip list according to search on topbar
   useEffect(() => {
-    if(documents) {
-      let filtered = documents.filter(doc => {
+    if(tripsList) {
+      let filtered = tripsList.filter(doc => {
         return doc.title.toLowerCase().includes(searchQuery) || doc.place.toLowerCase().includes(searchQuery)
       });
       setTrips(filtered);
     }
-  }, [searchQuery, documents]);
-
-
+  }, [searchQuery, tripsList]);
 
   return (
     <main>

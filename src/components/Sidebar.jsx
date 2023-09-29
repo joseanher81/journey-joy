@@ -5,6 +5,7 @@ import { Drawer, List, ListItem, ListItemIcon, ListItemText, Typography } from "
 import { tokens } from "../theme";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
+import Logo from "../assets/images/logo.svg";
 
 const drawerWidth = 240;
 
@@ -42,7 +43,17 @@ export default function Sidebar() {
           }}
         >
 
-          <Box mb="25px" mt="25px">
+          <Box mb="50px" mt="25px">
+              <Box display="flex" justifyContent="center" alignItems="center" paddingLeft="20px" marginBottom="50px">
+                <img
+                
+                  alt="Journey Joy logo"
+                  width="100%"
+                  height="100%"
+                  src={Logo}
+                  
+                />
+              </Box>
               <Box display="flex" justifyContent="center" alignItems="center">
                 <img
                   alt="profile-user"
@@ -82,7 +93,7 @@ export default function Sidebar() {
               </ListItem>
             ))}
           </List>
-            
+
         </Drawer>   
       </Box>
   )
