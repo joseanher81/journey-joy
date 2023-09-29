@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="300" height="100" viewBox="0 0 300 100">
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="100" viewBox="0 0 300 100" fill="transparent">
   <!-- Fondo blanco -->
-  <rect width="100%" height="100%" fill="#fff" />
+  <rect width="100%" height="100%" fill="none" />
   
   <!-- Icono del mundo detallado -->
   <circle cx="50" cy="50" r="45" fill="#3498db" />
