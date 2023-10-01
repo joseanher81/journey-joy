@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useState } from "react";
 import { db, timestamp } from "../firebase/config";
-import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, updateDoc } from "firebase/firestore";
 
 const initialState = {
     document: null,
@@ -16,6 +16,8 @@ const firestoreReducer = (state, action) => {
         case 'ADDED_DOCUMENT':
             return { isPending: false, document: action.payload, success: true, error: null }
         case 'UPDATED_DOCUMENT':
+            return { isPending: false, document: action.payload, success: true, error: null }
+        case 'READED_DOCUMENT':
             return { isPending: false, document: action.payload, success: true, error: null }
         case 'ERROR':
             return { isPending: false, document: null, success: false, error: action.payload }
@@ -56,13 +58,34 @@ export const useFirestore = (col) => {
         dispatch({ type: 'IS_PENDING' });
 
         try {
-            // Referencia al documento que deseas actualizar
+            // Document to be updated ref
             const documentRef = doc(colRef, id);
 
-            // Realiza la actualización del documento
+            // Update document
             const updatedDocument = await updateDoc(documentRef, updates);
             dispatchIfNotCancelled({ type: 'UPDATED_DOCUMENT', payload: updatedDocument });
             return updatedDocument; // Just in case
+        } catch (error) {
+            dispatchIfNotCancelled({ type: 'ERROR', payload: error.message });
+        }
+    }
+
+    // read document (single time without listener)
+    const getDocument = async (id) => {
+        dispatch({ type: 'IS_PENDING' });
+
+        try {
+            // Document ref
+            const documentRef = doc(colRef, id);
+            const docSnap = await getDoc(documentRef);
+
+            if(docSnap.exists()) {
+                const doc = docSnap.data();
+                dispatchIfNotCancelled({ type: 'READED_DOCUMENT', payload: doc });
+                return doc;
+            }
+
+
         } catch (error) {
             dispatchIfNotCancelled({ type: 'ERROR', payload: error.message });
         }
@@ -74,5 +97,5 @@ export const useFirestore = (col) => {
         return () => setIsCancelled(true);
     }, [])
 
-    return { addDocument, updateDocument, response }
+    return { addDocument, updateDocument, getDocument, response }
 }

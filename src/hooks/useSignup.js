@@ -33,6 +33,7 @@ export const useSignup = () => {
             const docRef = doc(db, 'users', user.uid);
             await setDoc(docRef, {
                 online: true,
+                theme: "light",
                 displayName
             });
 

@@ -12,9 +12,8 @@ import Search from "./Search";
 
 const Topbar = ({setSearchQuery}) => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode)
   const colorMode = useContext(ColorModeContext);
-  const {logout, isPending} = useLogout();
+    const {logout, isPending} = useLogout();
   const location = useLocation();
 
   return (

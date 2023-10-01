@@ -2,6 +2,7 @@ import { createContext, useEffect, useReducer } from "react";
 import { auth } from "../firebase/config";
 
 import { onAuthStateChanged } from "firebase/auth";
+import { useFirestore } from "../hooks/useFirestore";
 
 export const AuthContext = createContext();
 
@@ -16,9 +17,10 @@ export const authReducer = (state, action) => {
         default:
             return state;
     }
-}
+} 
  
 export const AuthContextProvider = ({children}) => {
+    const { getDocument } = useFirestore('users');
     const [state, dispatch] = useReducer(authReducer, {
         user: null,
         isAuthReady: false
@@ -26,7 +28,20 @@ export const AuthContextProvider = ({children}) => {
 
     useEffect(() => {
         const unsub = onAuthStateChanged( auth, (user) => {
-            dispatch({ type: 'AUTH_IS_READY', payload: user});
+            (async () => {
+                    try {
+                        // Load user custom properties
+                        if(user) {
+                            const custom = await getDocument(user.uid);
+                            user = {...user, ...custom}
+                        }
+
+                        dispatch({ type: 'AUTH_IS_READY', payload: user});
+                    } catch (error) {
+                      console.error("Error loading user custom data:", error);
+                    }
+              })();
+            
             unsub();
         });
     }, [])

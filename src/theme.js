@@ -1,5 +1,7 @@
-import { createContext, useState, useMemo } from "react";
+import { createContext, useState, useMemo, useEffect } from "react";
 import { createTheme } from "@mui/material/styles";
+import { useAuthContext } from "./hooks/useAuthContext";
+import { useFirestore } from "./hooks/useFirestore";
 
 // color design tokens export
 export const tokens = (mode) => ({
@@ -227,15 +229,27 @@ export const ColorModeContext = createContext({
 });
 
 export const useMode = () => {
-  const [mode, setMode] = useState("dark");
+  const [mode, setMode] = useState("light");
+  const { updateDocument } = useFirestore('users');
 
-  const colorMode = useMemo(
-    () => ({
-      toggleColorMode: () =>
-        setMode((prev) => (prev === "light" ? "dark" : "light")),
-    }),
-    []
-  );
+  // Read mode preference from user
+  const { user } = useAuthContext();
+  useEffect(()=> {
+    if(user && user.theme !== mode) setMode(user.theme);
+  }, [user])
+
+  // Save mode change in Firestore
+  useEffect( () => {
+    ( async () => {   
+      const update = {"theme": mode}
+      if(user) await updateDocument(user.uid, update);
+    })();
+  }, [mode]);
+
+  const colorMode = {
+    toggleColorMode: () => 
+      setMode((prevMode) => (prevMode === "light" ? "dark" : "light")),
+  };
 
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   return [theme, colorMode];
