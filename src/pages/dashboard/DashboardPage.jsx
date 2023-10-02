@@ -1,9 +1,10 @@
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
-import TripsList from "../../components/TripsList";
+import TripsList from "./components/TripsList";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useEffect, useState } from "react";
 import { useTripsContext } from "../../hooks/useTripsContext";
-
+import { isBefore, isAfter, isSameDay } from 'date-fns';
+import TripsBlock from "./components/TripsBlock";
 
 export default function DashboardPage({searchQuery, setSearchQuery}) {
 
@@ -12,6 +13,7 @@ export default function DashboardPage({searchQuery, setSearchQuery}) {
   const {user} = useAuthContext();
 
   const [trips, setTrips] = useState(null);
+  const [pastTrips, setPastTrips] = useState(null);
 
   // Clean search query on first time (MAYBE THIS COULD BE SOLVED IN A BETTER WAY)
   useEffect(()=> {
@@ -24,40 +26,27 @@ export default function DashboardPage({searchQuery, setSearchQuery}) {
       let filtered = tripsList.filter(doc => {
         return doc.title.toLowerCase().includes(searchQuery) || doc.place.toLowerCase().includes(searchQuery)
       });
-      setTrips(filtered);
+
+      // Split trips into past and future lists
+      const today = new Date();
+
+      let future = filtered.filter(doc => isAfter(doc.endDate.toDate(), today) || isSameDay(doc.endDate.toDate(), today));
+      setTrips(future);
+
+      let past = filtered.filter(doc => isBefore(doc.endDate.toDate(), today) && !isSameDay(doc.endDate.toDate(), today));
+      setPastTrips(past.reverse()); //Display first the recent ones
     }
   }, [searchQuery, tripsList]);
 
   return (
     <main>
-      {/* Hero unit */}
-      <Box
-        sx={{
-          bgcolor: 'background.paper',
-          pt: 8,
-          pb: 6,
-        }}
-      >
-        <Container maxWidth="sm">
-          <Typography
-            component="h1"
-            variant="h2"
-            align="center"
-            color="text.primary"
-            gutterBottom
-          >
-            Mis viajes
-          </Typography>
-          <Typography variant="h5" align="center" color="text.secondary" paragraph>
-          ¡Hola, {user.displayName}! Aquí están todos tus viajes en un solo lugar, listos para ser explorados. Disfruta de la libertad de planificar, soñar y descubrir nuevos destinos. 
-          Tu próxima aventura te espera. ¡Empieza a crear recuerdos inolvidables ahora!
-          </Typography>
+      
+      {/* Future trips */}
+      {(trips.length >0) && <TripsBlock user={user} title="Mis viajes" future={true} trips={trips}/>}
 
-        </Container>
-      </Box>
-      {/*  End Hero unit */}
-
-      {trips && <TripsList trips={trips}/>}
+      {/* Past trips */}
+      {(pastTrips.length >0) && <TripsBlock user={user} title="Viajes pasados" future={false} trips={pastTrips}/>}
+      
     </main>
   )
 }
