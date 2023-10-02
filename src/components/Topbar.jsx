@@ -30,9 +30,9 @@ const Topbar = ({setSearchQuery}) => {
             <LightModeOutlinedIcon />
           )}
         </IconButton>
-        <IconButton>
+{/*         <IconButton>
           <SettingsOutlinedIcon />
-        </IconButton>
+        </IconButton> */}
         {!isPending && (
           <IconButton onClick={logout}>
             <LogoutOutlinedIcon  />
