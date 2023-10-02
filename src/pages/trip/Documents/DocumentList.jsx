@@ -14,7 +14,7 @@ export default function DocumentList({handleOpenModal, trip}) {
 
     return (
         <Grid container spacing={2} sx={{margin: '0 50px 40px', minHeight: '200px'}}>
-            {trip.documents.map( card => (
+            {trip.documents?.map( card => (
                 <Grid item xs={1}>
                 <a
                     href={card.fileURL}
