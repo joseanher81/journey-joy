@@ -81,7 +81,7 @@ export default function LoginPage() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Log in
+              Acceder
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
@@ -89,7 +89,7 @@ export default function LoginPage() {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label="Dirección de email"
                 name="email"
                 autoComplete="email"
                 autoFocus
@@ -109,7 +109,7 @@ export default function LoginPage() {
                 required
                 fullWidth
                 name="password"
-                label="Password"
+                label="Contraseña"
                 type="password"
                 id="password"
                 autoComplete="current-password"
@@ -135,7 +135,7 @@ export default function LoginPage() {
                   variant="contained"
                   sx={{ mt: 3, mb: 2, backgroundColor: colors.greenAccent[400] }}
                 >
-                  Log In
+                  Acceder
                 </Button>
               )}
               {isPending && (
@@ -145,20 +145,20 @@ export default function LoginPage() {
                   variant="contained"
                   sx={{ mt: 3, mb: 2, backgroundColor: colors.greenAccent[400] }}
                 >
-                  Loading
+                  Cargando
                 </Button>
               )}
 
 
               <Grid container>
-                <Grid item xs>
+                {/* <Grid item xs>
                   <Link href="#" variant="body2" color={colors.greenAccent[400]}>
-                    Forgot password?
+                    ¿Has olvidado tu contraseña?
                   </Link>
-                </Grid>
+                </Grid> */}
                 <Grid item>
                   <Link href="/signup" variant="body2" color={colors.greenAccent[400]}>
-                    {"Don't have an account? Sign Up"}
+                    {"¿No tienes cuenta? Crear cuenta"}
                   </Link>
                 </Grid>
               </Grid>

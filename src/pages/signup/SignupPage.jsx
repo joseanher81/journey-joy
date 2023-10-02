@@ -112,7 +112,7 @@ export default function SignupPage() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign up
+              Crear Cuenta
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
@@ -120,7 +120,7 @@ export default function SignupPage() {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label="Dirección de Email"
                 name="email"
                 autoComplete="email"
                 autoFocus
@@ -140,7 +140,7 @@ export default function SignupPage() {
                 required
                 fullWidth
                 name="password"
-                label="Password"
+                label="Contraseña"
                 type="password"
                 id="password"
                 autoComplete="current-password"
@@ -160,7 +160,7 @@ export default function SignupPage() {
                 required
                 fullWidth
                 name="displayName"
-                label="Display Name"
+                label="Nombre de Usuario"
                 id="displayName"
                 sx={{
                     '& label.Mui-focused': {
@@ -212,7 +212,7 @@ export default function SignupPage() {
                             padding="20px"
                         >
                             <AddPhotoAlternateOutlinedIcon sx={{fontSize: '8vh', color: colors.grey[500]}}/>
-                            <Typography variant="h5" color={colors.grey[500]}>Upload or drop an image here</Typography>
+                            <Typography variant="h5" color={colors.grey[500]}>Sube o arrastra una imagen aquí</Typography>
 
                         </Box>
                     
@@ -220,49 +220,18 @@ export default function SignupPage() {
                 </Box>
               </FileUploader>    
 
-
-              {/* <TextField
-                type="file"
-                margin="normal"
-                required
-                fullWidth
-                name="profile"
-                id="profile"
-                label="Profile picture"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                inputProps={{
-                  accept: 'image/*', // Puedes especificar tipos de archivo permitidos aquí
-                  onChange: handleFileChange, // Función para manejar cambios en el archivo seleccionado
-                }}
-                sx={{
-                    '& label.Mui-focused': {
-                        color: colors.greenAccent[400] ,
-                    },
-                    '& .MuiOutlinedInput-root': {
-                        '&.Mui-focused fieldset': {
-                            borderColor: colors.greenAccent[400],
-                        },
-                    },
-                }}
-              /> */}
-              {/* <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              /> */}
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2, backgroundColor: colors.greenAccent[400] }}
               >
-                Sign Up
+                Crear Cuenta
               </Button>
               <Grid container>
                 <Grid item>
                   <Link href="/login" variant="body2" color={colors.greenAccent[400]}>
-                    {"Already have an account? Log in"}
+                    {"¿Ya tienes cuenta? Accede"}
                   </Link>
                 </Grid>
               </Grid>

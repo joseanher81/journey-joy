@@ -12,7 +12,7 @@ export default function Stats({countriesVisited, daysTraveled, mostVisitedCountr
             {/* First column */}
             <Grid item xs={12} md={4}>
                 <Paper elevation={0} style={{ padding: '10vh', textAlign: 'center' }}>
-                    <Typography variant="h2">Number of trips</Typography>
+                    <Typography variant="h2">Número de viajes</Typography>
                     <Typography variant="h1"  mt={'30px'} color="secondary" fontWeight="bold">{numberOfTrips}</Typography>
                 </Paper>
             </Grid>
@@ -20,7 +20,7 @@ export default function Stats({countriesVisited, daysTraveled, mostVisitedCountr
             {/* Second column */}
             <Grid item xs={12} md={4}>
                 <Paper elevation={0} style={{ padding: '10vh', textAlign: 'center' }}>
-                    <Typography variant="h2">Most visited country</Typography>
+                    <Typography variant="h2">País más visitado</Typography>
                     <Typography variant="h1"  mt={'30px'} color="secondary" fontWeight="bold">{mostVisitedCountry}</Typography>
                 </Paper>
             </Grid>
@@ -28,7 +28,7 @@ export default function Stats({countriesVisited, daysTraveled, mostVisitedCountr
             {/* Third Column */}
             <Grid item xs={12} md={4}>
                 <Paper elevation={0} style={{ padding: '10vh', textAlign: 'center' }}>
-                    <Typography variant="h2">Countries visited</Typography>
+                    <Typography variant="h2">Paises visitados</Typography>
                     <Typography variant="h1" mt={'30px'} color="secondary" fontWeight="bold">{countriesVisited}</Typography>
                 </Paper>
             </Grid>
@@ -39,7 +39,7 @@ export default function Stats({countriesVisited, daysTraveled, mostVisitedCountr
             {/* First Column */}
             <Grid item xs={12} md={6}>
                 <Paper elevation={0} style={{ padding: '10vh', textAlign: 'center' }}>
-                    <Typography variant="h2">Traveling days</Typography>
+                    <Typography variant="h2">Días viajados</Typography>
                     <Typography variant="h1" mt={'30px'} color="secondary" fontWeight="bold">{daysTraveled}</Typography>
                 </Paper>
             </Grid>
@@ -47,7 +47,7 @@ export default function Stats({countriesVisited, daysTraveled, mostVisitedCountr
             {/* Second column */}
             <Grid item xs={12} md={6}>
                 <Paper elevation={0} style={{ padding: '10vh', textAlign: 'center' }}>
-                    <Typography variant="h2">Companions</Typography>
+                    <Typography variant="h2">Acompañantes</Typography>
                     {!companions && <Typography variant="h1"  mt={'30px'} color="secondary" fontWeight="bold">You traveled on your own!</Typography>}
 
                     {companions && (

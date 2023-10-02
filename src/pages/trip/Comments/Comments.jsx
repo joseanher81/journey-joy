@@ -32,7 +32,7 @@ export default function Comments({trip}) {
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>
-                <Typography variant="h2">Trip Comments</Typography>
+                <Typography variant="h2">Comentarios</Typography>
                 <CommentsList comments={trip.comments}/>
             </Grid>
             <Grid item xs={12}>

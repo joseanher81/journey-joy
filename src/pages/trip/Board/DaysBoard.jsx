@@ -152,7 +152,7 @@ const DaysBoard = ({trip}) => {
   };
   return (
     <Box>
-      <Typography variant="h2" sx={{marginLeft: '50px'}}>Activities by Days</Typography>
+      <Typography variant="h2" sx={{marginLeft: '50px'}}>Actividades por Días</Typography>
 
       <DragDropContext
         onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
@@ -181,7 +181,7 @@ const DaysBoard = ({trip}) => {
                           backgroundColor: colors.greenAccent[400]
                         }}
                       >
-                        Add activity 
+                        Añadir
                       </Button>
 
                       

@@ -17,17 +17,17 @@ export default function Sidebar() {
 
   const menuItems = [
     { 
-      text: 'My Trips', 
+      text: 'Mis Viajes', 
       icon: <SubjectOutlined color="secondary" fontSize="large"/>, 
       path: '/' 
     },
     { 
-      text: 'Create Trip', 
+      text: 'Crear Viaje', 
       icon: <AddCircleOutlineOutlined color="secondary" fontSize="large"/>, 
       path: '/new' 
     },
     { 
-      text: 'Overview', 
+      text: 'Estadísticas', 
       icon: <QueryStatsOutlinedIcon color="secondary" fontSize="large"/>, 
       path: '/overview' 
     }

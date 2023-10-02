@@ -23,7 +23,7 @@ export default function NewComment({handleAddNewComment}) {
     return (
         <>
         <Grid item xs={12}>
-            <Typography variant="h4">Add New Comment</Typography>
+            <Typography variant="h4">Añadir Nuevo Comentario</Typography>
         </Grid>
         <Grid item xs={12}>
             {/* NEW COMMENT FORM*/}
@@ -36,7 +36,7 @@ export default function NewComment({handleAddNewComment}) {
                     fullWidth
                     id="comment"
                     name="comment"
-                    label="Comment"
+                    label="Comentario"
                     multiline
                     rows={4}
                     sx={{
@@ -57,7 +57,7 @@ export default function NewComment({handleAddNewComment}) {
                     variant="contained"
                     sx={{ mt: 3, mb: 2, backgroundColor: colors.greenAccent[400] }}
                     >
-                    Add Comment
+                    Añadir Comentario
                     </Button>
                 )}
                 {isPending && (
@@ -67,7 +67,7 @@ export default function NewComment({handleAddNewComment}) {
                     variant="contained"
                     sx={{ mt: 3, mb: 2, backgroundColor: colors.greenAccent[400] }}
                     >
-                    Loading
+                    Cargando
                     </Button>
                 )}
             </Box>

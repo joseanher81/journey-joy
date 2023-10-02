@@ -45,7 +45,7 @@ export default function Documents({trip}) {
     return (
         <>
             <Box>
-                <Typography variant="h2" sx={{marginLeft: '50px'}}>Trip documents</Typography>
+                <Typography variant="h2" sx={{marginLeft: '50px'}}>Documentos de Viaje</Typography>
 
                 {/* Documents row*/}
                 <DocumentList handleOpenModal={handleOpenModal} trip={trip}/>

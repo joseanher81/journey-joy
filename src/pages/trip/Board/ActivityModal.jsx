@@ -35,7 +35,7 @@ export default function ActivityModal({openModal, handleCloseModal, handleAddAct
                 p: 4,
             }}>
                 <Typography id="modal-modal-title" variant="h6" component="h2" color={colors.greenAccent[400]}>
-                    Add New Activity
+                    Añadir Nueva Actividad
                 </Typography>
             
                 {/* Form */}
@@ -45,7 +45,7 @@ export default function ActivityModal({openModal, handleCloseModal, handleAddAct
                     fullWidth
                     id="activity"
                     name="activity"
-                    label="Activity description"
+                    label="Descripción"
                     multiline
                     rows={4}
                     onChange={handleActivityDescription}
@@ -69,7 +69,7 @@ export default function ActivityModal({openModal, handleCloseModal, handleAddAct
                     sx={{ mt: 3, mb: 2, backgroundColor: colors.greenAccent[400] }}
                     onClick={() => handleAddActivity(activityDescription)}
                 >
-                    Add Activity
+                    Guardar
                 </Button>
 
             </Box>

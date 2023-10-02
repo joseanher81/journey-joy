@@ -21,7 +21,7 @@ export default function Search({setSearchQuery}) {
             backgroundColor={colors.primary[400]}
             borderRadius="3px"
         >
-            <InputBase sx={{ ml: 2, flex: 1 }} placeholder="Search" onChange={(e)=>handleSearch(e)}/>
+            <InputBase sx={{ ml: 2, flex: 1 }} placeholder="Buscar" onChange={(e)=>handleSearch(e)}/>
             <IconButton type="button" sx={{ p: 1 }}>
             <SearchIcon />
             </IconButton>

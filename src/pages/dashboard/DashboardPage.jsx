@@ -42,10 +42,10 @@ export default function DashboardPage({searchQuery, setSearchQuery}) {
     <main>
       
       {/* Future trips */}
-      {(trips.length >0) && <TripsBlock user={user} title="Mis viajes" future={true} trips={trips}/>}
+      {(trips?.length >0) && <TripsBlock user={user} title="Mis viajes" future={true} trips={trips}/>}
 
       {/* Past trips */}
-      {(pastTrips.length >0) && <TripsBlock user={user} title="Viajes pasados" future={false} trips={pastTrips}/>}
+      {(pastTrips?.length >0) && <TripsBlock user={user} title="Viajes pasados" future={false} trips={pastTrips}/>}
       
     </main>
   )

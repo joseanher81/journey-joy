@@ -6,7 +6,7 @@ export default function Companions({trip}) {
     return (
   
         <Box>
-            <Typography variant="h2" sx={{marginLeft: '50px'}}>Companions</Typography>
+            <Typography variant="h2" sx={{marginLeft: '50px'}}>Acompañantes</Typography>
 
             <Grid container spacing={2} sx={{margin: '0 40px 40px'}}>
             {trip.companions.map((companion, index) => (
