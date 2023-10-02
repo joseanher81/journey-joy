@@ -9,6 +9,7 @@ import ActivityModal from './ActivityModal';
 import ActivityCard from './ActivityCard';
 import { useTheme } from '@emotion/react';
 import { tokens } from '../../../theme';
+import {useSnackBarContext} from '../../../hooks/useSnackBarContext';
 
 const Container = styled.div`
   display: flex;
@@ -46,6 +47,7 @@ const Title = styled.span`
 const DaysBoard = ({trip}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const {showSnack} = useSnackBarContext();
 
   const [columns, setColumns] = useState(formatActivitiesForBoard(trip));
   const { updateDocument, response } = useFirestore('trips');
@@ -71,6 +73,9 @@ const DaysBoard = ({trip}) => {
     const update = {[`days.${dayId}`]: [...trip.days[dayId], {pos, activity}]}
 
     await updateDocument(trip.id, update);
+
+    // Show success snackbar
+    if(!response.error) showSnack('New activity added!');
   }
 
   // This saves in Firestore new order of activity

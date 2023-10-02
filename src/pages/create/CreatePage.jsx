@@ -14,8 +14,7 @@ import { useCollection } from "../../hooks/useCollection";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useGeolocation } from "../../hooks/useGeolocation";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import dayjs from "dayjs";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import {useSnackBarContext} from '../../hooks/useSnackBarContext';
 
 export default function CreatePage() {
 
@@ -27,7 +26,7 @@ export default function CreatePage() {
     const {documents: companionsOptions, error} = useCollection('users');
     const { findISObyPlace } = useGeolocation();
     const [formError, setFormError] = useState(null);
-    console.log(companionsOptions)
+    const {showSnack} = useSnackBarContext();
 
     // Dates state
     const [startDate, setStartDate] = useState(null);
@@ -101,12 +100,13 @@ export default function CreatePage() {
             endDate: timestamp.fromDate(new Date(endDate))
         }
 
-        console.log("AQUI VAS A VIAJAR", trip);
-
         // Save project in Firestore
-       await addDocument(trip);
-        if(!response.error) navigate('/');
-
+        await addDocument(trip);
+        
+        if(!response.error) {
+            navigate('/');
+            showSnack('New trip created!');
+        }
         
     };
     // END SUBMIT

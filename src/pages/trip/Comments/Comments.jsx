@@ -4,11 +4,13 @@ import CommentsList from "./CommentsList";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { useFirestore } from "../../../hooks/useFirestore";
 import { timestamp } from "../../../firebase/config";
+import {useSnackBarContext} from '../../../hooks/useSnackBarContext';
 
 
 export default function Comments({trip}) {
     const {user} = useAuthContext();
     const { updateDocument, response } = useFirestore('trips');
+    const {showSnack} = useSnackBarContext();
 
     const handleAddNewComment =  async(content) => {
         const newComment = {
@@ -22,6 +24,9 @@ export default function Comments({trip}) {
         await updateDocument(trip.id, {
             comments: [...trip.comments, newComment]
         });
+
+        // Show success snackbar
+        if(!response.error) showSnack('New comment added!');
     }
 
     return (

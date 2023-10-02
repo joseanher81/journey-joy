@@ -14,6 +14,8 @@ import CreatePage from "./pages/create/CreatePage";
 import TripPage from "./pages/trip/TripPage";
 import { useState } from "react";
 import OverviewPage from "./pages/overview/OverviewPage";
+import { SnackBarContextProvider } from "./context/SnackBarContext";
+import SnackBar from "./components/SnackBar";
 
 
 function App() {
@@ -25,44 +27,47 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <CssBaseline />
-          <div className="app">
-            {isAuthReady && (
-              <>
-                {/* ROUTES WHEN There is an user logged in */}
-                {user && (
-                  <>
-                    <Sidebar />
+          <SnackBarContextProvider>
+            <CssBaseline />
+            <div className="app">
+              {isAuthReady && (
+                <>
+                  {/* ROUTES WHEN There is an user logged in */}
+                  {user && (
+                    <>
+                      <Sidebar />
+                      <main className="content" style={{'backgroundColor': theme.palette.background}}>
+                        <Topbar setSearchQuery={setSearchQuery}/>
+                    
+                        <TripsContextProvider>
+                          <Routes>
+                            <Route path="/" element={ <DashboardPage searchQuery={searchQuery} setSearchQuery={setSearchQuery}/> } />
+                            <Route path="/new" element={ <CreatePage /> } />
+                            <Route path="/trips/:id" element={ <TripPage /> } />
+                            <Route path="/overview" element={ <OverviewPage /> } />
+                            <Route path="*" element={ <Navigate to='/' />} />
+                          </Routes>
+                        </TripsContextProvider>
+
+                      </main>
+                    </>
+                  )}
+
+                  {/* ROUTES WHEN NO user logged in */}  
+                  {!user && (
                     <main className="content" style={{'backgroundColor': theme.palette.background}}>
-                      <Topbar setSearchQuery={setSearchQuery}/>
-                  
-                      <TripsContextProvider>
-                        <Routes>
-                          <Route path="/" element={ <DashboardPage searchQuery={searchQuery} setSearchQuery={setSearchQuery}/> } />
-                          <Route path="/new" element={ <CreatePage /> } />
-                          <Route path="/trips/:id" element={ <TripPage /> } />
-                          <Route path="/overview" element={ <OverviewPage /> } />
-                          <Route path="*" element={ <Navigate to='/' />} />
-                        </Routes>
-                      </TripsContextProvider>
-
+                      <Routes>
+                        <Route path="/signup" element={ <SignupPage /> } />
+                        <Route path="/login" element={ <LoginPage /> } />   
+                        <Route path="*" element={ <Navigate to='/login' />} />
+                      </Routes>
                     </main>
-                  </>
-                )}
-
-                {/* ROUTES WHEN NO user logged in */}  
-                {!user && (
-                  <main className="content" style={{'backgroundColor': theme.palette.background}}>
-                    <Routes>
-                      <Route path="/signup" element={ <SignupPage /> } />
-                      <Route path="/login" element={ <LoginPage /> } />   
-                      <Route path="*" element={ <Navigate to='/login' />} />
-                    </Routes>
-                  </main>
-                )}
-              </>
-            )}
-          </div>
+                  )}
+                </>
+              )}
+            </div>
+            <SnackBar />
+          </SnackBarContextProvider>
         </LocalizationProvider>
       </ThemeProvider>
     </ColorModeContext.Provider>

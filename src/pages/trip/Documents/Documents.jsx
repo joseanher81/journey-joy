@@ -7,19 +7,14 @@ import NewDocument from "./NewDocument";
 import { useStore } from "../../../hooks/useStore";
 import { useFirestore } from "../../../hooks/useFirestore";
 import DocumentList from "./DocumentList";
-
-const cards = [
-    {type: 'flight', text: 'Avión Laura'},
-    {type: 'train', text: 'Tren a Munich'},
-    {type: 'car', text: 'Alquiler Berlín'},
-    {type: 'ticket', text: 'Museo de arte'},
-];
+import {useSnackBarContext} from '../../../hooks/useSnackBarContext';
 
 export default function Documents({trip}) {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const {error, isPending, uploadFile} = useStore();
     const {updateDocument, response} = useFirestore('trips');
+    const {showSnack} = useSnackBarContext();
 
     // Create new document modal behaviour
     const [openModal, setOpenModal] = useState(false);
@@ -41,6 +36,9 @@ export default function Documents({trip}) {
         await updateDocument( trip.id, {
             documents: [...trip.documents, newDocument]
         })
+
+        // Show success snackbar
+        if(!response.error) showSnack('New document added!');
 
     }   
    
