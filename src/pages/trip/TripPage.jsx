@@ -43,12 +43,14 @@ export default function TripPage() {
                                 <Documents trip={currentTrip} />
                             </Paper>
                         </Grid>
-                        <Grid item xs={12} sx={{marginTop: '50px'}}>
-                            <Paper elevation={0}>
-                                {/* COMPANIONS */}
-                                <Companions trip={currentTrip} />
-                            </Paper>
-                        </Grid>
+                        {(currentTrip.companions.length > 0) && 
+                            <Grid item xs={12} sx={{marginTop: '50px'}}>
+                                <Paper elevation={0}>
+                                    {/* COMPANIONS */}
+                                    <Companions trip={currentTrip} />
+                                </Paper>
+                            </Grid>
+                        }
                     </Grid>
                 </Grid>
 
