@@ -44,7 +44,7 @@ export default function Sidebar() {
         >
 
           <Box mb="50px" mt="25px">
-              <Box display="flex" justifyContent="center" alignItems="center" paddingLeft="20px" marginBottom="50px">
+              <Box display="flex" justifyContent="center" alignItems="center" paddingLeft="20px" marginBottom="50px" onClick={()=>navigate('/')}>
                 <img
                 
                   alt="Journey Joy logo"
