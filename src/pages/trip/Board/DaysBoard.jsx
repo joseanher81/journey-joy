@@ -63,6 +63,12 @@ const DaysBoard = ({trip}) => {
   // Activity modal
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = (id) => {
+    
+    if(trip.days[id].length >= 5) { // This limits the number of activities per day to 5
+      showSnack('There can be only a max of 5 activities per day!', 'warning');
+      return;
+    }
+    // Adding activities allowed
     setDayId(id)
     setOpenModal(true);
   }
@@ -80,7 +86,7 @@ const DaysBoard = ({trip}) => {
     await updateDocument(trip.id, update);
 
     // Show success snackbar
-    if(!response.error) showSnack('New activity added!');
+    if(!response.error) showSnack('New activity added!', 'success');
   }
 
   // This saves in Firestore new order of activity

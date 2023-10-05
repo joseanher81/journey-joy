@@ -9,7 +9,7 @@ import { useSnackBarContext } from "../hooks/useSnackBarContext";
 export default function SnackBar() {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const {visible, message, hideSnack} = useSnackBarContext();
+    const {visible, message, severity, hideSnack} = useSnackBarContext();
 
     const Alert = forwardRef(function Alert(props, ref) {
         return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -26,7 +26,7 @@ export default function SnackBar() {
 
     return (
         <Snackbar open={visible} autoHideDuration={4000} onClose={handleClose} >
-            <Alert onClose={handleClose} severity="success" sx={{ width: '100%',backgroundColor: colors.greenAccent[400] }}>
+            <Alert onClose={handleClose} severity={severity} sx={{ width: '100%', backgroundColor: (severity === 'success') ? colors.greenAccent[400] : '' }}>
                 {message}
             </Alert>
         </Snackbar>

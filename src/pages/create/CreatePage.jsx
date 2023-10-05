@@ -105,7 +105,7 @@ export default function CreatePage() {
         
         if(!response.error) {
             navigate('/');
-            showSnack('New trip created!');
+            showSnack('New trip created!', 'success');
         }
         
     };
