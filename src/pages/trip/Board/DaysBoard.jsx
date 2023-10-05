@@ -13,11 +13,16 @@ import {useSnackBarContext} from '../../../hooks/useSnackBarContext';
 
 const Container = styled.div`
   display: flex;
+  overflow-x: auto;
+  max-width: 90vw;
+  padding-left: 20px;
+  padding-bottom: 30px;
+  margin-left: 10px;
 `;
 
 const ActivitiesList = styled.div`
   min-height: 100px;
-  max-height: 70%;
+  ${'' /* max-height: 70%; */}
   display: flex;
   flex-direction: column;
   background: #f3f3f3;
@@ -32,7 +37,7 @@ const ActivitiesColumnStyles = styled.div`
   margin-top: 5vh;
   display: flex;
   justify-content: center;
-  width: 100%;
+  ${'' /* width: 100%; */}
   min-height: 50vh;
 `;
 
@@ -157,7 +162,7 @@ const DaysBoard = ({trip}) => {
       <DragDropContext
         onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
       >
-        <Container>
+        <Container className='activities'>
           <ActivitiesColumnStyles>
             {Object.entries(columns).map(([columnId, column], index) => {
               return (

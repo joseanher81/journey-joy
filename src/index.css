@@ -16,3 +16,23 @@ body,
   display: flex;
   position: relative;
 }
+
+.activities::-webkit-scrollbar {
+  height: 5px;
+}
+
+/* Track */
+.activities::-webkit-scrollbar-track {
+  background: #e0e0e0;
+}
+
+/* Handle */
+.activities::-webkit-scrollbar-thumb {
+  background: #3da58a;
+}
+
+/* Handle on hover */
+.activities::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
