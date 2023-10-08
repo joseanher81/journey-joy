@@ -34,12 +34,11 @@ function App() {
                 <>
                   {/* ROUTES WHEN There is an user logged in */}
                   {user && (
-                    <>
+                    <TripsContextProvider>
                       <Sidebar />
                       <main className="content" style={{'backgroundColor': theme.palette.background}}>
                         <Topbar setSearchQuery={setSearchQuery}/>
-                    
-                        <TripsContextProvider>
+                                  
                           <Routes>
                             <Route path="/" element={ <DashboardPage searchQuery={searchQuery} setSearchQuery={setSearchQuery}/> } />
                             <Route path="/new" element={ <CreatePage /> } />
@@ -47,10 +46,9 @@ function App() {
                             <Route path="/overview" element={ <OverviewPage /> } />
                             <Route path="*" element={ <Navigate to='/' />} />
                           </Routes>
-                        </TripsContextProvider>
-
+                        
                       </main>
-                    </>
+                    </TripsContextProvider>
                   )}
 
                   {/* ROUTES WHEN NO user logged in */}  

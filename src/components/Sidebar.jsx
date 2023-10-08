@@ -6,6 +6,7 @@ import { tokens } from "../theme";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/images/logo.svg";
+import { useTripsContext } from "../hooks/useTripsContext";
 
 const drawerWidth = 240;
 
@@ -14,6 +15,7 @@ export default function Sidebar() {
   const colors = tokens(theme.palette.mode);
   const {user} = useAuthContext();
   const navigate = useNavigate();
+  const { tripsList } = useTripsContext();
 
   const menuItems = [
     { 
@@ -83,6 +85,7 @@ export default function Sidebar() {
             {menuItems.map((item) => (
               <ListItem 
                 button 
+                disabled={(item.path === '/overview' && tripsList.length < 1) ? true : false}
                 key={item.text} 
                 onClick={()=>navigate(item.path)}
                 sx={{marginTop: '15px'}}
