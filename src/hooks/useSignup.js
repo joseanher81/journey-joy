@@ -34,7 +34,8 @@ export const useSignup = () => {
             await setDoc(docRef, {
                 online: true,
                 theme: "light",
-                displayName
+                displayName,
+                photoURL: downloadURL
             });
 
             // Dispatch login action

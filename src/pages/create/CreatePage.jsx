@@ -94,11 +94,17 @@ export default function CreatePage() {
             travelDuration,
             ISO,
             createdBy: user.uid,
-            companions: selectedCompanions.map( companion => companion.id),
+            companions: selectedCompanions.map( companion => ({
+                id: companion.id, 
+                displayName: companion.displayName, 
+                photoURL: companion.photoURL
+            })),
             days: createActivityDays(travelDuration),
             startDate: timestamp.fromDate(new Date(startDate)),
             endDate: timestamp.fromDate(new Date(endDate))
         }
+
+        console.log('selected com', selectedCompanions)
 
         // Save project in Firestore
         await addDocument(trip);
