@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Draggable } from '@hello-pangea/dnd';
 import styled from '@emotion/styled';
 import { Card, CardContent, Grid, TextField, Typography } from '@mui/material';
@@ -31,6 +31,10 @@ const ActivityCard = ({ item, index, deleteActivityById, editActivityById, day }
     setIsEditing(false);
     editActivityById(day, id, text)
   };
+
+  // useEffect(() => {
+  //   setText(item.activity);
+  // }, [item])
 
   return (
     <Draggable key={item.id} draggableId={item.id} index={index}>
@@ -78,7 +82,7 @@ const ActivityCard = ({ item, index, deleteActivityById, editActivityById, day }
                   />
                 ) : (
                   <Typography variant="body2" onClick={handleTextClick}>
-                    {text}
+                    {item.activity}
                   </Typography>
                 )}
 
