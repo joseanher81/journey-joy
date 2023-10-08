@@ -24,7 +24,7 @@ export default function CreatePage() {
     const {user} = useAuthContext();
     const { addDocument, response } = useFirestore('trips');
     const {documents: companionsOptions, error} = useCollection('users');
-    const { findISObyPlace } = useGeolocation();
+    const { findISOAndCountryByPlace } = useGeolocation();
     const [formError, setFormError] = useState(null);
     const {showSnack} = useSnackBarContext();
 
@@ -83,7 +83,7 @@ export default function CreatePage() {
         const travelDuration = differenceInDays(new Date(endDate), new Date(startDate)) + 1; // Need to add 1 to include starting and ending day
         
         // Get country ISO (needed for map representation)
-        const ISO = await findISObyPlace(place);
+        const [ISO, country] = await findISOAndCountryByPlace(place);
 
         // Document to be saved
         const trip = {
@@ -93,6 +93,7 @@ export default function CreatePage() {
             description,
             travelDuration,
             ISO,
+            country,
             createdBy: user.uid,
             companions: selectedCompanions.map( companion => ({
                 id: companion.id, 
