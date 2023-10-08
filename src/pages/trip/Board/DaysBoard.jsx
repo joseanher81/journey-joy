@@ -10,6 +10,7 @@ import ActivityCard from './ActivityCard';
 import { useTheme } from '@emotion/react';
 import { tokens } from '../../../theme';
 import {useSnackBarContext} from '../../../hooks/useSnackBarContext';
+import { timestamp } from '../../../firebase/config';
 
 const Container = styled.div`
   display: flex;
@@ -54,6 +55,7 @@ const DaysBoard = ({trip}) => {
   const colors = tokens(theme.palette.mode);
   const {showSnack} = useSnackBarContext();
 
+  console.log('a ver', formatActivitiesForBoard(trip))
   const [columns, setColumns] = useState(formatActivitiesForBoard(trip));
   const { updateDocument, response } = useFirestore('trips');
 
@@ -77,11 +79,11 @@ const DaysBoard = ({trip}) => {
 
   
   // This adds a new activity to the corresponding column day
-  const handleAddActivity = async(activity) => {
+  const handleAddActivity = async(activity, start) => {
     setOpenModal(false);
 
     const pos = trip.days[dayId].length;
-    const update = {[`days.${dayId}`]: [...trip.days[dayId], {pos, activity}]}
+    const update = {[`days.${dayId}`]: [...trip.days[dayId], {pos, activity, start: start ? timestamp.fromDate(new Date(start)) : null}]}
 
     await updateDocument(trip.id, update);
 
@@ -91,9 +93,10 @@ const DaysBoard = ({trip}) => {
 
   // This saves in Firestore new order of activity
   useEffect(() => {
-    const updateFirestore = async() => {
+    const updateFirestore = async() => { 
       if(hasChanged) {   
         const update = formatActivitiesForFirebase(columns)
+
         await updateDocument(trip.id, update);
         setHasChanged(false);   
       }
@@ -108,7 +111,8 @@ const DaysBoard = ({trip}) => {
   }, [trip]);
 
   // Deletes an activity based on day and id
-  function deleteActivityById(day, id) {
+  const deleteActivityById = (day, id) => {
+    console.log('deleting', day, id)
     // Clone the columns object to avoid direct modification
     const newColumns = { ...columns };
   
@@ -119,6 +123,32 @@ const DaysBoard = ({trip}) => {
     }
   
     // Set the new columns with the removed item
+    setHasChanged(true);   
+    setColumns(newColumns);
+  }
+
+  // Edits an activity based on day and id
+  const editActivityById = (day, id, text) => {
+    // Clone the columns object to avoid direct modification
+    const newColumns = { ...columns };
+
+    console.log('editing', day, id, text)
+
+    // Check if the day exists in the columns and has an "items" property that is an array
+    if (newColumns.hasOwnProperty(day) && newColumns[day].hasOwnProperty("items") && Array.isArray(newColumns[day].items)) {
+      // Map the elements of the "items" array in the given day to modify the one with the given "id"
+      newColumns[day].items = newColumns[day].items.map((item) => {
+        if(item.id === id) {
+          item.activity = text;
+          return item;
+        }
+        return item;
+      });
+    }
+
+    console.log('new columns', newColumns)
+
+    // Set the new columns with the modified item
     setHasChanged(true);   
     setColumns(newColumns);
   }
@@ -151,6 +181,7 @@ const DaysBoard = ({trip}) => {
       const copiedItems = [...column.items];
       const [removed] = copiedItems.splice(source.index, 1);
       copiedItems.splice(destination.index, 0, removed);
+      console.log('copied', copiedItems)
       setColumns({
         ...columns,
         [source.droppableId]: {
@@ -180,7 +211,7 @@ const DaysBoard = ({trip}) => {
                     >
                       <Title>{column.title}</Title>
                       {column.items.map((item, index) => (
-                        <ActivityCard key={item.id} item={item} index={index} day={column.title} deleteActivityById={deleteActivityById}/>
+                        <ActivityCard key={item.id} item={item} index={index} day={column.title} deleteActivityById={deleteActivityById} editActivityById={editActivityById}/>
                       ))}
                       {provided.placeholder}
                       <Button 

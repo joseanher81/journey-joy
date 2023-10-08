@@ -62,10 +62,12 @@ export const useFirestore = (col) => {
             const documentRef = doc(colRef, id);
 
             // Update document
+            console.log('updateDocument', updates)
             const updatedDocument = await updateDoc(documentRef, updates);
             dispatchIfNotCancelled({ type: 'UPDATED_DOCUMENT', payload: updatedDocument });
             return updatedDocument; // Just in case
         } catch (error) {
+            console.log('updateDocument', error)
             dispatchIfNotCancelled({ type: 'ERROR', payload: error.message });
         }
     }

@@ -1,14 +1,17 @@
 import { useTheme } from '@emotion/react';
-import { Box, Button, Modal, TextField, Typography } from '@mui/material'
+import { Box, Button, Grid, Modal, TextField, Typography } from '@mui/material'
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { tokens } from '../../../theme';
 import { useState } from 'react';
+import { DesktopTimePicker } from '@mui/x-date-pickers';
+import startOfDay from 'date-fns/startOfDay/index';
 
 export default function ActivityModal({openModal, handleCloseModal, handleAddActivity}) {
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [activityDescription, setActivityDescription] = useState('');
+    const [start, setStart] = useState(null);
 
     const handleActivityDescription = (e) => {
         setActivityDescription(e.target.value);
@@ -61,13 +64,35 @@ export default function ActivityModal({openModal, handleCloseModal, handleAddAct
                     }}
                 />
 
+                <DesktopTimePicker
+                    margin="normal"
+                    id="startTime"
+                    name="startTime"
+                    label="Hora de comienzo"
+                    value={start}
+                    onChange={(newValue) => setStart(newValue)}
+                    ampm={false}
+                    sx={{
+                        'width': '100%',
+                        'marginTop': '10px',
+                        '& label.Mui-focused': {
+                            color: colors.greenAccent[400] ,
+                        },
+                        '& .MuiOutlinedInput-root': {
+                            '&.Mui-focused fieldset': {
+                                borderColor: colors.greenAccent[400],
+                            },
+                        },
+                    }}
+                />             
+
                 <Button
                     type="submit"
                     fullWidth
                     variant="contained"
                     startIcon={<AddCircleIcon />}
                     sx={{ mt: 3, mb: 2, backgroundColor: colors.greenAccent[400] }}
-                    onClick={() => handleAddActivity(activityDescription)}
+                    onClick={() => handleAddActivity(activityDescription, start)}
                 >
                     Guardar
                 </Button>

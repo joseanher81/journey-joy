@@ -8,7 +8,7 @@ export const formatActivitiesForBoard = (trip) => {
     const days = Object.keys(trip.days);
     
     days.forEach(day => {
-        columns[day] = {title: day, items: trip.days[day].map( activity => ({id: `${day} - ${activity.pos}`, Task: activity.activity}))}
+        columns[day] = {title: day, items: trip.days[day].map( activity => ({id: `${day} - ${activity.pos}`, activity: activity.activity, start: activity.start}))}
     });
 
     return sortDays(columns);
@@ -18,10 +18,10 @@ export const formatActivitiesForFirebase = (columns) => {
     const keys = Object.keys(columns);
   
     const result = {};
-    keys.forEach( day => result[day] = columns[day].items.map( (act, index) => ({pos: index, activity: act.Task })));
+    keys.forEach( day => result[day] = columns[day].items.map( (act, index) => ({pos: index, activity: act.activity, start: act.start })));
 
     const update = {'days': result};
-
+    
     return update;
 }
 

@@ -40,7 +40,9 @@ export default function DashboardPage({searchQuery, setSearchQuery}) {
 
   return (
     <main>
-      
+      {/* No trips */}
+      {(!trips || trips?.length === 0) && <TripsBlock user={user} title="No hay viajes" />}
+
       {/* Future trips */}
       {(trips?.length >0) && <TripsBlock user={user} title="Mis viajes" future={true} trips={trips}/>}
 

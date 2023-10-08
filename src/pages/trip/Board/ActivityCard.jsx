@@ -1,54 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Draggable } from '@hello-pangea/dnd';
 import styled from '@emotion/styled';
-import { Card, CardContent, Typography } from '@mui/material';
+import { Card, CardContent, Grid, TextField, Typography } from '@mui/material';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { useTheme } from '@emotion/react';
 import { tokens } from '../../../theme';
-// import CustomAvatar from '../TableComponents/CustomAvatar'
-// import { ReactComponent as RedArrow } from '../../assets/icons/High.svg'
-// import { ReactComponent as YellowArrow } from '../../assets/icons/Medium.svg'
-// import { ReactComponent as BlueArrow } from '../../assets/icons/Low.svg'
+import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
+import { timestamp } from '../../../firebase/config'
+import { format } from "date-fns";
 
-const TaskInformation = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 0 15px;
-  min-height: 106px;
-  border-radius: 5px;
-  max-width: 311px;
-  color: black;
-  /* background: ${({ isDragging }) =>
-    isDragging ? 'rgba(255, 59, 59, 0.15)' : 'white'}; */
-  background: white;
-  margin-top: 15px;
 
-  .secondary-details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    font-size: 12px;
-    font-weight: 400px;
-    color: #7d7d7d;
-  }
-  /* .priority{ */
-  /* margin-right: 12px; */
-  /* align-self: center;
-    svg{
-      width: 12px !important;
-      height: 12px !important;
-      margin-right: 12px; */
-  /* margin-top: 2px; */
-  /* } */
-  /* } */
-`;
 
-const ActivityCard = ({ item, index, deleteActivityById, day }) => {
+const ActivityCard = ({ item, index, deleteActivityById, editActivityById, day }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [text, setText] = useState(item.activity);
+
+  const handleTextClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleTextChange = (e) => {
+    setText(e.target.value);
+  };
+
+  const handleTextBlur = (day, id) => {
+    setIsEditing(false);
+    editActivityById(day, id, text)
+  };
 
   return (
     <Draggable key={item.id} draggableId={item.id} index={index}>
@@ -60,6 +42,7 @@ const ActivityCard = ({ item, index, deleteActivityById, day }) => {
         >
 
           <Card 
+            onClick={()=> console.log('clicking')}
             sx={{ 
               padding: '0 15px',
               marginTop: '10px',
@@ -68,27 +51,79 @@ const ActivityCard = ({ item, index, deleteActivityById, day }) => {
               borderRadius: '5px',
               maxWidth: '311px'
           }}>
-            <CardContent sx={{display:'flex'}}>
-              <Typography variant="body2">
-                {item.Task}
-              </Typography>
-              <DeleteForeverOutlinedIcon sx={{ marginLeft: 'auto' }} onClick={()=>deleteActivityById(day, item.id)}/>
-            </CardContent>
-          </Card>
 
-          {/* <TaskInformation>
-            <p>{item.Task}</p> */}
-            {/* <div className="secondary-details">
-              <p>
-                <span>
-                  {new Date(item.Due_Date).toLocaleDateString('en-us', {
-                    month: 'short',
-                    day: '2-digit',
-                  })}
-                </span>
-              </p>
-            </div> */}
-          {/* </TaskInformation> */}
+          
+
+            <CardContent sx={{paddingBottom: "10px !important"}} >
+              <Grid container spacing={2} >
+                <Grid item xs={11}>
+
+                {isEditing ? (
+                  <TextField
+                    value={text}
+                    onChange={handleTextChange}
+                    onBlur={()=>handleTextBlur(day, item.id)}
+                    autoFocus
+                    fullWidth
+                    sx={{
+                        '& label.Mui-focused': {
+                            color: colors.greenAccent[400] ,
+                        },
+                        '& .MuiOutlinedInput-root': {
+                            '&.Mui-focused fieldset': {
+                                borderColor: colors.greenAccent[400],
+                            },
+                        },
+                    }}
+                  />
+                ) : (
+                  <Typography variant="body2" onClick={handleTextClick}>
+                    {text}
+                  </Typography>
+                )}
+
+
+                </Grid>
+                <Grid item xs={1}>
+                  <DeleteForeverOutlinedIcon fontSize='1.7rem' sx={{'color': colors.greenAccent[400]}} onClick={()=>deleteActivityById(day, item.id)}/>
+                </Grid>
+              </Grid>
+
+              { item.start  && 
+                (<Grid container spacing={2}>
+                  <Grid item xs={12} sx={{'display': 'flex', 'alignItems': 'center'}}>
+                    <AccessTimeOutlinedIcon sx={{'fontSize': '1rem', 'marginRight': '5px', 'color': colors.greenAccent[400]}} />
+                    <Typography variant="caption" color={colors.greenAccent[400]}>
+                      {format(item.start.toDate(), "HH:mm")}
+                    </Typography>
+                  </Grid>
+                </Grid>)
+              }
+            </CardContent>
+{/*             <CardContent sx={{paddingBottom: "10px !important"}} >
+              <Grid container spacing={2} >
+                <Grid item xs={11}>
+                  <Typography variant="body2">
+                    {item.activity}
+                  </Typography>
+                </Grid>
+                <Grid item xs={1}>
+                  <DeleteForeverOutlinedIcon fontSize='1.7rem' sx={{'color': colors.greenAccent[400]}} onClick={()=>deleteActivityById(day, item.id)}/>
+                </Grid>
+              </Grid>
+
+              { item.start  && 
+                (<Grid container spacing={2}>
+                  <Grid item xs={12} sx={{'display': 'flex', 'alignItems': 'center'}}>
+                    <AccessTimeOutlinedIcon sx={{'fontSize': '1rem', 'marginRight': '5px', 'color': colors.greenAccent[400]}} />
+                    <Typography variant="caption" color={colors.greenAccent[400]}>
+                      {format(item.start.toDate(), "HH:mm")}
+                    </Typography>
+                  </Grid>
+                </Grid>)
+              }
+            </CardContent> */}
+          </Card>
         </div>
       )}
     </Draggable>
