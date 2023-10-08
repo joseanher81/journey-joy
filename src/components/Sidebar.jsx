@@ -85,7 +85,7 @@ export default function Sidebar() {
             {menuItems.map((item) => (
               <ListItem 
                 button 
-                disabled={(item.path === '/overview' && tripsList.length < 1) ? true : false}
+                disabled={(item.path === '/overview' && tripsList?.length < 1) ? true : false}
                 key={item.text} 
                 onClick={()=>navigate(item.path)}
                 sx={{marginTop: '15px'}}
