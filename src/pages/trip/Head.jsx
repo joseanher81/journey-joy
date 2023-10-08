@@ -1,11 +1,14 @@
 import { useTheme } from "@emotion/react";
 import { Box, Grid, Paper, Typography } from "@mui/material";
 import { tokens } from "../../theme";
+import { format } from "date-fns";
+import { es } from 'date-fns/locale'; 
 
 
 export default function Head({trip}) {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode)
+    console.log('trip tiene esto', trip)
 
   return (
     <Box
@@ -48,8 +51,11 @@ export default function Head({trip}) {
                     >
                         {trip.title}
                     </Typography>
-                    <Typography variant="h5" align="center" color="#7D7D7D" paragraph>
+                    <Typography variant="h4" align="center" color="#7D7D7D" paragraph>
                         {trip.description}
+                    </Typography>
+                    <Typography variant="h6" align="center" color={colors.greenAccent[400]} paragraph>
+                        {format(trip.startDate.toDate(), "d 'de' MMMM 'de' yyyy", { locale: es })} - {format(trip.endDate.toDate(), "d 'de' MMMM 'de' yyyy", { locale: es })}
                     </Typography>
                 </Grid>
             </Grid>
