@@ -110,7 +110,8 @@ export default function NewDocument({openModal, handleCloseModal, handleAddDocum
                                 onChange={handleChangeType}
                             >
                             {documentTypes.map ( doc => (
-                                <FormControlLabel 
+                                <FormControlLabel
+                                    key={doc.value} 
                                     value={doc.value} 
                                     control={<Radio />} 
                                     label={
