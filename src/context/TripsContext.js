@@ -27,7 +27,7 @@ export const TripsContextProvider = ({children}) => {
     // Load user trips if user exist
     const queryConfig = [
         {field: 'createdBy', operator: '==', value: user.uid},
-        {field: 'companions', operator: 'array-contains', value: user.uid}
+        {field: 'companions', operator: 'array-contains', value: {id: user.uid, displayName: user.displayName, photoURL: user.photoURL}}
     ];
 
     const {documents, error} = useCollection('trips', queryConfig, 'startDate');
