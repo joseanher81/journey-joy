@@ -111,6 +111,7 @@ export const getUniqueCompanions = (trips) => {
         if (companion.photoURL) {
           // Create an object with photoURL and displayName
           const uniqueCompanion = {
+            id: companion.id,
             photoURL: companion.photoURL,
             displayName: companion.displayName || '', // If displayName is missing, use an empty string
           };

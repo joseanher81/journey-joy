@@ -85,6 +85,10 @@ export default function CreatePage() {
         // Get country ISO (needed for map representation)
         const [ISO, country] = await findISOAndCountryByPlace(place);
 
+        // User himself must be added to selected companions, he will be filtered from lists later on
+        const companions = [...selectedCompanions];
+        companions.push({id: user.uid, displayName: user.displayName, photoURL: user.photoURL});
+
         // Document to be saved
         const trip = {
             title,
@@ -97,7 +101,7 @@ export default function CreatePage() {
             comments: [],
             documents: [],
             createdBy: user.uid,
-            companions: selectedCompanions.map( companion => ({
+            companions: companions.map( companion => ({
                 id: companion.id, 
                 displayName: companion.displayName, 
                 photoURL: companion.photoURL
@@ -106,8 +110,6 @@ export default function CreatePage() {
             startDate: timestamp.fromDate(new Date(startDate)),
             endDate: timestamp.fromDate(new Date(endDate))
         }
-
-        console.log('selected com', selectedCompanions)
 
         // Save project in Firestore
         await addDocument(trip);
