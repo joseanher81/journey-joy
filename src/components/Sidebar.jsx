@@ -41,7 +41,7 @@ export default function Sidebar() {
           variant="permanent"
           sx={{
             width: drawerWidth,
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, marginLeft: '10px' },
           }}
         >
 
