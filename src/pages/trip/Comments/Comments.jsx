@@ -26,7 +26,7 @@ export default function Comments({trip}) {
         });
 
         // Show success snackbar
-        if(!response.error) showSnack('New comment added!', 'success');
+        if(!response.error) showSnack('¡Nuevo comentario añadido!', 'success');
     }
 
     return (

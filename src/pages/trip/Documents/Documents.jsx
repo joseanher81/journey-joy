@@ -38,7 +38,7 @@ export default function Documents({trip}) {
         })
 
         // Show success snackbar
-        if(!response.error) showSnack('New document added!', 'success');
+        if(!response.error) showSnack('¡Nuevo documento añadido!', 'success');
 
     }   
    
