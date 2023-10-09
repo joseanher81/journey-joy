@@ -9,6 +9,8 @@ import { tokens } from '../../../theme';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import { timestamp } from '../../../firebase/config'
 import { format } from "date-fns";
+import { DesktopTimePicker } from '@mui/x-date-pickers';
+import dayjs from 'dayjs';
 
 
 
@@ -16,25 +18,33 @@ const ActivityCard = ({ item, index, deleteActivityById, editActivityById, day }
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditingText, setIsEditingText] = useState(false);
   const [text, setText] = useState(item.activity);
+  const [isEditingTime, setIsEditingTime] = useState(false);
 
+
+  // Handle activity text editing
   const handleTextClick = () => {
-    setIsEditing(true);
+    setIsEditingText(true);
   };
 
   const handleTextChange = (e) => {
     setText(e.target.value);
   };
 
-  const handleTextBlur = (day, id) => {
-    setIsEditing(false);
-    editActivityById(day, id, text)
+  // Handle activity time editing
+  const handleTimeClick = () => {
+    setIsEditingTime(true);
   };
 
-  // useEffect(() => {
-  //   setText(item.activity);
-  // }, [item])
+  const handleTextBlur = (day, id, time) => {
+    setIsEditingText(false);
+    setIsEditingTime(false);
+console.log('timevale', time)
+    editActivityById(day, id, text, time);
+  };
+
+
 
   return (
     <Draggable key={item.id} draggableId={item.id} index={index}>
@@ -62,11 +72,11 @@ const ActivityCard = ({ item, index, deleteActivityById, editActivityById, day }
               <Grid container spacing={2} >
                 <Grid item xs={11}>
 
-                {isEditing ? (
+                {isEditingText ? (
                   <TextField
                     value={text}
                     onChange={handleTextChange}
-                    onBlur={()=>handleTextBlur(day, item.id)}
+                    onBlur={()=>handleTextBlur(day, item.id, item.start?.toDate())}
                     autoFocus
                     fullWidth
                     sx={{
@@ -93,40 +103,48 @@ const ActivityCard = ({ item, index, deleteActivityById, editActivityById, day }
                 </Grid>
               </Grid>
 
-              { item.start  && 
+              { (item.start  && isEditingTime) &&
                 (<Grid container spacing={2}>
-                  <Grid item xs={12} sx={{'display': 'flex', 'alignItems': 'center'}}>
-                    <AccessTimeOutlinedIcon sx={{'fontSize': '1rem', 'marginRight': '5px', 'color': colors.greenAccent[400]}} />
-                    <Typography variant="caption" color={colors.greenAccent[400]}>
-                      {format(item.start.toDate(), "HH:mm")}
-                    </Typography>
-                  </Grid>
-                </Grid>)
-              }
-            </CardContent>
-{/*             <CardContent sx={{paddingBottom: "10px !important"}} >
-              <Grid container spacing={2} >
-                <Grid item xs={11}>
-                  <Typography variant="body2">
-                    {item.activity}
-                  </Typography>
-                </Grid>
-                <Grid item xs={1}>
-                  <DeleteForeverOutlinedIcon fontSize='1.7rem' sx={{'color': colors.greenAccent[400]}} onClick={()=>deleteActivityById(day, item.id)}/>
-                </Grid>
-              </Grid>
+                  <Grid item xs={12}>
 
-              { item.start  && 
+                    <DesktopTimePicker
+                      margin="normal"
+                      id="startTime"
+                      name="startTime"
+                      label="Hora de comienzo"
+                      value={dayjs(item.start.toDate())}                
+                      onAccept={(newValue)=>handleTextBlur(day, item.id, newValue)}
+                      ampm={false}
+                      sx={{
+                          'width': '100%',
+                          'marginTop': '10px',
+                          '& label.Mui-focused': {
+                              color: colors.greenAccent[400] ,
+                          },
+                          '& .MuiOutlinedInput-root': {
+                              '&.Mui-focused fieldset': {
+                                  borderColor: colors.greenAccent[400],
+                              },
+                          },
+                      }}
+                    />         
+
+                  </Grid>
+                </Grid>)
+              }
+
+              { (item.start  && !isEditingTime) &&
                 (<Grid container spacing={2}>
                   <Grid item xs={12} sx={{'display': 'flex', 'alignItems': 'center'}}>
                     <AccessTimeOutlinedIcon sx={{'fontSize': '1rem', 'marginRight': '5px', 'color': colors.greenAccent[400]}} />
-                    <Typography variant="caption" color={colors.greenAccent[400]}>
+                    <Typography variant="caption" color={colors.greenAccent[400]} onClick={handleTimeClick}>
                       {format(item.start.toDate(), "HH:mm")}
                     </Typography>
                   </Grid>
                 </Grid>)
               }
-            </CardContent> */}
+
+            </CardContent>
           </Card>
         </div>
       )}

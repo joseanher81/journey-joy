@@ -128,11 +128,11 @@ const DaysBoard = ({trip}) => {
   }
 
   // Edits an activity based on day and id
-  const editActivityById = (day, id, text) => {
+  const editActivityById = (day, id, text, time) => {
     // Clone the columns object to avoid direct modification
     const newColumns = { ...columns };
 
-    console.log('editing', day, id, text)
+    console.log('editing', day, id, text, time)
 
     // Check if the day exists in the columns and has an "items" property that is an array
     if (newColumns.hasOwnProperty(day) && newColumns[day].hasOwnProperty("items") && Array.isArray(newColumns[day].items)) {
@@ -140,6 +140,7 @@ const DaysBoard = ({trip}) => {
       newColumns[day].items = newColumns[day].items.map((item) => {
         if(item.id === id) {
           item.activity = text;
+          item.start = time ? timestamp.fromDate(new Date(time)) : null;
           return item;
         }
         return item;
