@@ -137,7 +137,7 @@ const ActivityCard = ({ item, index, deleteActivityById, editActivityById, day }
                 (<Grid container spacing={2}>
                   <Grid item xs={12} sx={{'display': 'flex', 'alignItems': 'center'}}>
                     <AccessTimeOutlinedIcon sx={{'fontSize': '1rem', 'marginRight': '5px', 'color': colors.greenAccent[400]}} />
-                    <Typography variant="caption" color={colors.greenAccent[400]} onClick={handleTimeClick}>
+                    <Typography variant="caption" color={colors.greenAccent[400]} onClick={handleTimeClick} sx={{ cursor: 'pointer' }}>
                       {format(item.start.toDate(), "HH:mm")}
                     </Typography>
                   </Grid>
