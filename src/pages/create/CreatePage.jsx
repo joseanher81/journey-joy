@@ -94,6 +94,7 @@ export default function CreatePage() {
             travelDuration,
             ISO,
             country,
+            comments: [],
             documents: [],
             createdBy: user.uid,
             companions: selectedCompanions.map( companion => ({
