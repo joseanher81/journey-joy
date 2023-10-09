@@ -2,7 +2,7 @@ import { useTheme } from '@emotion/react';
 import { Box, Button, Grid, Modal, TextField, Typography } from '@mui/material'
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { tokens } from '../../../theme';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DesktopTimePicker } from '@mui/x-date-pickers';
 import startOfDay from 'date-fns/startOfDay/index';
 
@@ -16,6 +16,10 @@ export default function ActivityModal({openModal, handleCloseModal, handleAddAct
     const handleActivityDescription = (e) => {
         setActivityDescription(e.target.value);
     }
+
+    useEffect(() => {
+        setStart(null);
+    },[openModal]);
 
     
     return (

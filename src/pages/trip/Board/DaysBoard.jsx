@@ -80,12 +80,13 @@ const DaysBoard = ({trip}) => {
   
   // This adds a new activity to the corresponding column day
   const handleAddActivity = async(activity, start) => {
-    setOpenModal(false);
-
     const pos = trip.days[dayId].length;
     const update = {[`days.${dayId}`]: [...trip.days[dayId], {pos, activity, start: start ? timestamp.fromDate(new Date(start)) : null}]}
 
     await updateDocument(trip.id, update);
+
+    // Close modal
+    setOpenModal(false);
 
     // Show success snackbar
     if(!response.error) showSnack('New activity added!', 'success');
