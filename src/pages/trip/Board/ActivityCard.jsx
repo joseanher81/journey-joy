@@ -40,7 +40,7 @@ const ActivityCard = ({ item, index, deleteActivityById, editActivityById, day }
   const handleTextBlur = (day, id, time) => {
     setIsEditingText(false);
     setIsEditingTime(false);
-console.log('timevale', time)
+
     editActivityById(day, id, text, time);
   };
 
@@ -91,7 +91,7 @@ console.log('timevale', time)
                     }}
                   />
                 ) : (
-                  <Typography variant="body2" onClick={handleTextClick}>
+                  <Typography variant="body2" onClick={handleTextClick} sx={{ cursor: 'pointer' }}>
                     {item.activity}
                   </Typography>
                 )}
