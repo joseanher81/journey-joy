@@ -36,12 +36,12 @@ export default function Sidebar() {
   ];
 
   return (
-      <Box>
+      <Box sx={{backgroundColor: colors.primary[400]}}>
         <Drawer
           variant="permanent"
           sx={{
             width: drawerWidth,
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, marginLeft: '10px' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, marginLeft: '10px', backgroundColor: colors.primary[400] },
           }}
         >
 
