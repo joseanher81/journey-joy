@@ -1,3 +1,6 @@
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale'; 
+
 /* This function receives a trip and format its day activities
  in order to be consumed by react-beautiful-dnd logic */
 
@@ -32,6 +35,14 @@ export const createActivityDays = (days) => {
     }
     
     return result;
+}
+
+/* This function returns the name of the day
+of the week given a timestamp*/
+export const nameDayOfWeek = (date) => {
+    const day = format(date, 'EEEE', { locale: es });
+    const capitalizedDay = day.charAt(0).toUpperCase() + day.slice(1);
+    return capitalizedDay;
 }
 
 const sortDays = (data) => {

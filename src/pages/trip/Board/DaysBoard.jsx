@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { DragDropContext, Droppable } from '@hello-pangea/dnd';
-import { formatActivitiesForBoard, formatActivitiesForFirebase } from '../../../helpers/formatActivities';
+import { formatActivitiesForBoard, formatActivitiesForFirebase, nameDayOfWeek } from '../../../helpers/formatActivities';
 import { useFirestore } from '../../../hooks/useFirestore';
 import { Box, Button, Typography } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
@@ -11,6 +11,8 @@ import { useTheme } from '@emotion/react';
 import { tokens } from '../../../theme';
 import {useSnackBarContext} from '../../../hooks/useSnackBarContext';
 import { timestamp } from '../../../firebase/config';
+import { format, parseISO, addDays } from 'date-fns';
+import { es } from 'date-fns/locale'; 
 
 const Container = styled.div`
   display: flex;
@@ -47,7 +49,12 @@ const Title = styled.span`
   background: rgba(16, 149, 125, 0.15);
   padding: 2px 10px;
   border-radius: 5px;
-  align-self: flex-start;
+`;
+
+const DawyWeek = styled.span`
+  color: #10957d;
+  padding: 2px 10px;
+  border-radius: 5px;
 `;
 
 const DaysBoard = ({trip}) => {
@@ -211,7 +218,11 @@ const DaysBoard = ({trip}) => {
                       ref={provided.innerRef}
                       {...provided.droppableProps}
                     >
-                      <Title>{column.title}</Title>
+                      <Box display="flex" justifyContent="space-between">
+                        <Title>{column.title}</Title>
+                        <DawyWeek>{nameDayOfWeek(addDays(trip.startDate.toDate(), index))}</DawyWeek>
+                      </Box>
+
                       {column.items.map((item, index) => (
                         <ActivityCard key={item.id} item={item} index={index} day={column.title} deleteActivityById={deleteActivityById} editActivityById={editActivityById}/>
                       ))}
