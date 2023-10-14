@@ -86,9 +86,9 @@ const DaysBoard = ({trip}) => {
 
   
   // This adds a new activity to the corresponding column day
-  const handleAddActivity = async(activity, start) => {
+  const handleAddActivity = async(activity, start, activityType) => {
     const pos = trip.days[dayId].length;
-    const update = {[`days.${dayId}`]: [...trip.days[dayId], {pos, activity, start: start ? timestamp.fromDate(new Date(start)) : null}]}
+    const update = {[`days.${dayId}`]: [...trip.days[dayId], {pos, activity, activityType, start: start ? timestamp.fromDate(new Date(start)) : null}]}
 
     await updateDocument(trip.id, update);
 

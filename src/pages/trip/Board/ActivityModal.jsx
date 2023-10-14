@@ -1,10 +1,17 @@
 import { useTheme } from '@emotion/react';
-import { Box, Button, Grid, Modal, TextField, Typography } from '@mui/material'
+import { Box, Button, FormControl, FormControlLabel, FormLabel, Grid, Modal, Radio, RadioGroup, TextField, Typography } from '@mui/material'
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { tokens } from '../../../theme';
 import { useEffect, useState } from 'react';
 import { DesktopTimePicker } from '@mui/x-date-pickers';
-import startOfDay from 'date-fns/startOfDay/index';
+
+
+const activityTypes = [
+    {value: 'leisure', text: 'Ocio'},
+    {value: 'catering', text: 'Restauración'},
+    {value: 'travel', text: 'Viaje / Desplazamiento'},
+    {value: 'other', text: 'Otro'}
+];
 
 export default function ActivityModal({openModal, handleCloseModal, handleAddActivity}) {
 
@@ -12,6 +19,12 @@ export default function ActivityModal({openModal, handleCloseModal, handleAddAct
     const colors = tokens(theme.palette.mode);
     const [activityDescription, setActivityDescription] = useState('');
     const [start, setStart] = useState(null);
+    const [activityType, setActivityType] = useState('leisure');
+
+    // Activity type radio button handle
+    const handleChangeType = (e) => {
+        setActivityType(e.target.value);
+    }
 
     const handleActivityDescription = (e) => {
         setActivityDescription(e.target.value);
@@ -68,6 +81,26 @@ export default function ActivityModal({openModal, handleCloseModal, handleAddAct
                     }}
                 />
 
+                <FormControl sx={{marginTop: '10px'}}>
+                    <FormLabel id="document-type-radio-buttons-group">Tipo de actividad</FormLabel>
+                    <RadioGroup
+                        
+                        aria-labelledby="document-type-radio-buttons-group"
+                        name="documentType"
+                        value={activityType}
+                        onChange={handleChangeType}
+                    >
+                    {activityTypes.map ( activity => (
+                        <FormControlLabel
+                            key={activity.value} 
+                            value={activity.value} 
+                            control={<Radio />} 
+                            label={activity.text}                                         
+                        />
+                    ))}
+                    </RadioGroup>
+                </FormControl>
+
                 <DesktopTimePicker
                     margin="normal"
                     id="startTime"
@@ -96,7 +129,7 @@ export default function ActivityModal({openModal, handleCloseModal, handleAddAct
                     variant="contained"
                     startIcon={<AddCircleIcon />}
                     sx={{ mt: 3, mb: 2, backgroundColor: colors.greenAccent[400] }}
-                    onClick={() => handleAddActivity(activityDescription, start)}
+                    onClick={() => handleAddActivity(activityDescription, start, activityType)}
                 >
                     Guardar
                 </Button>

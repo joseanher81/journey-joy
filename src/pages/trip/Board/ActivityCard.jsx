@@ -12,7 +12,7 @@ import { format } from "date-fns";
 import { DesktopTimePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 
-
+const cardColors = {leisure: '#FFCACC', catering: '#FFCF96', travel: '#D2E0FB', other: '#fff'};
 
 const ActivityCard = ({ item, index, deleteActivityById, editActivityById, day }) => {
   const theme = useTheme();
@@ -63,7 +63,8 @@ const ActivityCard = ({ item, index, deleteActivityById, editActivityById, day }
               marginBottom: '5px',
               minHeight: '80px',
               borderRadius: '5px',
-              maxWidth: '311px'
+              maxWidth: '311px',
+              backgroundColor: item.activityType ? cardColors[item.activityType] : ''
           }}>
 
           
