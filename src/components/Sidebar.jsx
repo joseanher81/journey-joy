@@ -62,7 +62,7 @@ export default function Sidebar() {
                   width="100px"
                   height="100px"
                   src={user.photoURL}
-                  style={{ cursor: "pointer", borderRadius: "50%" }}
+                  style={{ borderRadius: "50%" }}
                 />
               </Box>
               <Box textAlign="center">
