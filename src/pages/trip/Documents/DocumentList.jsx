@@ -55,6 +55,7 @@ export default function DocumentList({handleOpenModal, trip}) {
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
+                        cursor: "pointer"
                         //border: '1px solid #ccc'
                     }}>
                         <AddCircleOutlineOutlinedIcon sx={{ width: '80%', height: '80%', opacity: '50%' }}/>
