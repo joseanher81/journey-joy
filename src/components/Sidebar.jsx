@@ -97,7 +97,7 @@ export default function Sidebar() {
             ))}
           </List>
 
-          <Typography variant="caption" sx={{ position: 'absolute', bottom: '20px', left: '20px' }}>v0.3.2</Typography>
+          <Typography variant="caption" sx={{ position: 'absolute', bottom: '20px', left: '20px' }}>v0.4.1</Typography>
         </Drawer>   
       </Box>
   )
