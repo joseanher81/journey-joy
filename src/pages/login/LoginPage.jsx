@@ -15,6 +15,7 @@ import { useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import {useLogin} from "../../hooks/useLogin";
 import MapImage from '../../assets/images/login.jpg';
+import GoogleButton from '../../assets/images/sign_in_google_small.png'
 
 
 
@@ -33,7 +34,7 @@ function Copyright(props) {
 export default function LoginPage() {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const {error, isPending, login} = useLogin();
+    const {error, isPending, login, loginWithGoogle } = useLogin();
 
     // SUBMIT
     const handleSubmit = (event) => {
@@ -48,6 +49,11 @@ export default function LoginPage() {
       
     // TODO gestionar errores
     };
+
+    // Google sign in
+    const handleGoogleSignIn  = () => {
+      loginWithGoogle();
+    }
 
     return (
     
@@ -129,14 +135,28 @@ export default function LoginPage() {
                 label="Remember me"
               /> */}
               {!isPending && (
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2, backgroundColor: colors.greenAccent[400] }}
-                >
-                  Acceder
-                </Button>
+                <>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2, backgroundColor: colors.greenAccent[400] }}
+                  >
+                    Acceder
+                  </Button>
+
+                  <Box display="flex" flexDirection="column" alignItems="center" mb="10px" sx={{cursor: "pointer"}}>
+                    <img
+                      onClick={handleGoogleSignIn}
+                      alt="Accede con Google"
+                      src={GoogleButton}
+                    />
+                  </Box>
+
+                </>
+
+
+                
               )}
               {isPending && (
                 <Button

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { auth, db } from "../firebase/config";
-import { signInWithEmailAndPassword } from "firebase/auth"
+import { auth, db, googleAuthProvider } from "../firebase/config";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
 import { useAuthContext } from "./useAuthContext";
 import { doc, updateDoc } from "firebase/firestore";
 import { useFirestore } from "./useFirestore";
@@ -37,5 +37,23 @@ export const useLogin = () => {
         }
     }
 
-    return {error, isPending, login}
+    const loginWithGoogle = async () => {
+        try {
+            // Init session with Google
+            const result = await signInWithPopup(auth, googleAuthProvider);
+        
+            // User loged in
+            const user = result.user;
+            console.log(`Usuario autenticado: ${user.displayName}`);
+
+            // Dispatch login action
+            dispatch({ type: 'LOGIN', payload: user });
+        } catch (error) {
+            console.log(error.message);
+            setError(error.message);
+            setIsPending(false);
+        }
+    }
+
+    return {error, isPending, login, loginWithGoogle}
 }
