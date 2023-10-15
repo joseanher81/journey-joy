@@ -2,7 +2,7 @@ import { useState } from "react";
 import { auth, db, googleAuthProvider } from "../firebase/config";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
 import { useAuthContext } from "./useAuthContext";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { useFirestore } from "./useFirestore";
 
 export const useLogin = () => {
@@ -44,7 +44,16 @@ export const useLogin = () => {
         
             // User loged in
             const user = result.user;
-            console.log(`Usuario autenticado: ${user.displayName}`);
+
+            // Create a user document in firebase (doc id is the same as user id)
+            const docRef = doc(db, 'users', user.uid);
+            await setDoc(docRef, {
+                online: true,
+                theme: "light",
+                displayName: user.displayName,
+                photoURL: user.photoURL
+            });
+
 
             // Dispatch login action
             dispatch({ type: 'LOGIN', payload: user });
