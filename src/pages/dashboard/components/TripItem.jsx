@@ -24,7 +24,7 @@ export default function TripItem({trip}) {
   return (
     <Grid item xs={12} sm={6} md={4} onClick={() => navigate(`/trips/${trip.id}`)}>
         <Card
-            sx={{ height: '100%', display: 'flex', flexDirection: 'column', backgroundColor: colors.primary[400] }}
+            sx={{ height: '100%', display: 'flex', flexDirection: 'column', backgroundColor: colors.primary[400], cursor: 'pointer' }}
         >
             <CardMedia
             component="div"
