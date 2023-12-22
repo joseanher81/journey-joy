@@ -10,3 +10,7 @@
 * **Nivo:** For data visualization and charts.
 * **Firebase:** For managing user authentication and storing data in the cloud.
 * **API createContext:** To manage the application state.
+
+![vlcsnap-2023-11-02-12h08m01s699](https://github.com/joseanher81/journey-joy/assets/23436377/d9ea8a62-dda7-4af9-857e-0675850d5f78)
+
+![vlcsnap-2023-12-22-11h22m13s854](https://github.com/joseanher81/journey-joy/assets/23436377/78f65853-bb32-4d71-89d2-b5556cdcd09c)
