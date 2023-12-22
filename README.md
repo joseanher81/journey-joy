@@ -1,4 +1,4 @@
-# De-idealize
+# JourneyJoy
 > A travel planner app in React
 
 **JourneyJoy** is developed using the latest version of React. It is an interactive travel journal that allows you to plan, record, and share your journeys. It provides the ability to add travel companions, organize activities by days, and upload travel documents, helping to keep all the details of your trips in one place.
