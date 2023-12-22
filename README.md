@@ -5,8 +5,8 @@
 
 ## Some of the technologies and libraries I am using
 
-**Material UI:** For the user interface.
-**React Beautiful DnD:** For drag-and-drop functionality.
-**Nivo:** For data visualization and charts.
-**Firebase:** For managing user authentication and storing data in the cloud.
-**API createContext:** To manage the application state.
+* **Material UI:** For the user interface.
+* **React Beautiful DnD:** For drag-and-drop functionality.
+* **Nivo:** For data visualization and charts.
+* **Firebase:** For managing user authentication and storing data in the cloud.
+* **API createContext:** To manage the application state.
