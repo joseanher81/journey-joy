@@ -15,6 +15,7 @@ import { tokens } from "../../theme";
 import MapImage from '../../assets/images/signup.jpeg';
 import { useSignup } from '../../hooks/useSignup';
 import { FileUploader } from "react-drag-drop-files";
+import {useSnackBarContext} from '../../hooks/useSnackBarContext';
 
 
 function Copyright(props) {
@@ -35,11 +36,11 @@ export default function SignupPage() {
     const [thumbnail, setThumbnail] = useState(null);
     const [thumbnailUrl, setThumbnailUrl]  = useState("");
     const [thumbnailError, setThumbnailError] = useState(null);
-    const {error, isPending, signUp} = useSignup();
+    const { signUp } = useSignup();
+    const {showSnack} = useSnackBarContext();
 
-
-    // SUBMIT
-    const handleSubmit = (event) => {
+    // Creates a new user
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
@@ -48,7 +49,10 @@ export default function SignupPage() {
         const password = data.get('password');
         const displayName = data.get('displayName');
 
-        signUp(email, password, displayName, thumbnail);
+        const res = await signUp(email, password, displayName, thumbnail);
+
+        // Error check
+        if(res.status === 'error') showSnack(res.message, 'warning');
     };
 
     // File input handle

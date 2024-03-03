@@ -6,12 +6,10 @@ import { useAuthContext } from "./useAuthContext";
 import { collection, doc, setDoc } from "firebase/firestore";
 
 export const useSignup = () => {
-    const [error, setError] = useState(null);
     const [isPending, setIsPending] = useState(false);
     const { dispatch } = useAuthContext();
 
     const signUp = async (email, password, displayName, thumbnail) => {
-        setError(null);
         setIsPending(true);
 
         try {
@@ -40,16 +38,17 @@ export const useSignup = () => {
 
             // Dispatch login action
             dispatch({ type: 'LOGIN', payload: user });
-
-            setError(null);
             setIsPending(false);
+
+            return {status: 'ok'}
 
         } catch (error) {
             console.log(error.message);
-            setError(error.message);
             setIsPending(false);
+
+            return {status: 'error', message: error.message}  
         }
     }
 
-    return {error, isPending, signUp}
+    return {isPending, signUp}
 }

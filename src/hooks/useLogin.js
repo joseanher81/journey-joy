@@ -6,13 +6,11 @@ import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { useFirestore } from "./useFirestore";
 
 export const useLogin = () => {
-    const [error, setError] = useState(null);
     const [isPending, setIsPending] = useState(false);
     const { dispatch } = useAuthContext();
     const { getDocument } = useFirestore('users');
 
     const login = async (email, password) => {
-        setError(null);
         setIsPending(true);
 
         try {
@@ -27,13 +25,15 @@ export const useLogin = () => {
 
             // Dispatch login action
             dispatch({ type: 'LOGIN', payload: completeUser });
-
-            setError(null);
             setIsPending(false);
+
+            return {status: 'ok'}
+
         } catch (error) {
             console.log(error.message);
-            setError(error.message);
             setIsPending(false);
+
+            return {status: 'error', message: error.message}  
         }
     }
 
@@ -54,15 +54,18 @@ export const useLogin = () => {
                 photoURL: user.photoURL
             });
 
-
             // Dispatch login action
             dispatch({ type: 'LOGIN', payload: user });
+
+            return {status: 'ok'}
+
         } catch (error) {
             console.log(error.message);
-            setError(error.message);
             setIsPending(false);
+
+            return {status: 'error', message: error.message}  
         }
     }
 
-    return {error, isPending, login, loginWithGoogle}
+    return {isPending, login, loginWithGoogle}
 }

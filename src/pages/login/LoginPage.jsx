@@ -15,7 +15,8 @@ import { useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import {useLogin} from "../../hooks/useLogin";
 import MapImage from '../../assets/images/login.jpg';
-import GoogleButton from '../../assets/images/sign_in_google_small.png'
+import GoogleButton from '../../assets/images/sign_in_google_small.png';
+import {useSnackBarContext} from '../../hooks/useSnackBarContext';
 
 
 
@@ -29,15 +30,14 @@ function Copyright(props) {
   );
 }
 
-
-
 export default function LoginPage() {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const {error, isPending, login, loginWithGoogle } = useLogin();
+    const { isPending, login, loginWithGoogle } = useLogin();
+    const {showSnack} = useSnackBarContext();
 
     // SUBMIT
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
@@ -45,9 +45,10 @@ export default function LoginPage() {
         const email = data.get('email');
         const password = data.get('password');
 
-        login(email, password);
+        const res = await login(email, password);
       
-    // TODO gestionar errores
+        // Error check
+        if(res.status === 'error') showSnack(res.message, 'warning');
     };
 
     // Google sign in
