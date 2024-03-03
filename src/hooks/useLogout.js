@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { auth, db } from "../firebase/config";
+import { auth } from "../firebase/config";
 import { signOut } from "firebase/auth"
 import { useAuthContext } from "./useAuthContext";
-import { doc, updateDoc } from "firebase/firestore";
 
 export const useLogout = () => {
     const [error, setError] = useState(null);
     const [isPending, setIsPending] = useState(false);
-    const { dispatch, user } = useAuthContext();
+    const { dispatch } = useAuthContext();
 
     const logout = async () => {
         setError(null);

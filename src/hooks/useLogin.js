@@ -2,7 +2,7 @@ import { useState } from "react";
 import { auth, db, googleAuthProvider } from "../firebase/config";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
 import { useAuthContext } from "./useAuthContext";
-import { doc, setDoc, updateDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { useFirestore } from "./useFirestore";
 
 export const useLogin = () => {

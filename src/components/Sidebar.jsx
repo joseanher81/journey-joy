@@ -1,7 +1,7 @@
 import { Box, useTheme } from "@mui/material";
 import { AddCircleOutlineOutlined, SubjectOutlined } from "@mui/icons-material";
 import QueryStatsOutlinedIcon from '@mui/icons-material/QueryStatsOutlined';
-import { Drawer, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
+import { Drawer, List, ListItem, ListItemIcon, Typography } from "@mui/material";
 import { tokens } from "../theme";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
@@ -91,7 +91,7 @@ export default function Sidebar() {
                 sx={{marginTop: '15px'}}
               >
                   <ListItemIcon>{item.icon}</ListItemIcon>
-                  {/* <ListItemText primary={item.text} /> */}
+
                   <Typography variant="h5">{item.text}</Typography>
               </ListItem>
             ))}

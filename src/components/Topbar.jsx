@@ -1,10 +1,9 @@
 import { Box, IconButton, useTheme } from "@mui/material";
 import { useContext } from "react";
 import { useLocation } from 'react-router-dom';
-import { ColorModeContext, tokens } from "../theme";
+import { ColorModeContext } from "../theme";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 
 import { useLogout } from "../hooks/useLogout";

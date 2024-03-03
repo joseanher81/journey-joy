@@ -1,6 +1,6 @@
-import { Button, Card, CardActions, CardContent, CardMedia, Grid, Typography } from "@mui/material";
+import { Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
 import { FmdGoodOutlined, AccessTimeOutlined, CalendarMonthOutlined } from "@mui/icons-material";
-import { formatDistanceToNow, differenceInDays  } from 'date-fns';
+import { formatDistanceToNow } from 'date-fns';
 import esLocale from 'date-fns/esm/locale/es';
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@emotion/react";

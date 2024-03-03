@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Draggable } from '@hello-pangea/dnd';
-import styled from '@emotion/styled';
 import { Card, CardContent, Grid, TextField, Typography } from '@mui/material';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { useTheme } from '@emotion/react';
 import { tokens } from '../../../theme';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
-import { timestamp } from '../../../firebase/config'
 import { format } from "date-fns";
 import { DesktopTimePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';

@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Paper, Typography } from "@mui/material";
+import { Grid, Paper, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import DaysBoard from "./Board/DaysBoard";
 import Head from "./Head";
@@ -7,7 +7,6 @@ import Companions from "./Companions";
 import Documents from "./Documents/Documents";
 import { useTheme } from "@emotion/react";
 import { useTripsContext } from "../../hooks/useTripsContext";
-import { useState } from "react";
 
 
 export default function TripPage() {

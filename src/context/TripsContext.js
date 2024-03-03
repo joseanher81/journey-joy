@@ -30,7 +30,7 @@ export const TripsContextProvider = ({children}) => {
         {field: 'companions', operator: 'array-contains', value: {id: user.uid, displayName: user.displayName, photoURL: user.photoURL}}
     ];
 
-    const {documents, error} = useCollection('trips', queryConfig, 'startDate');
+    const { documents } = useCollection('trips', queryConfig, 'startDate');
     
     useEffect(() => {
         if(documents) dispatch({type: 'UPDATE_TRIPS', payload: documents});

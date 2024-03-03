@@ -1,7 +1,4 @@
-import { useTheme } from "@emotion/react";
-import { Avatar, Box, Card, CardContent, Grid, IconButton, Paper, Typography } from "@mui/material";
-
-import { tokens } from "../../../theme";
+import { Box, Typography } from "@mui/material";
 import { useState } from "react";
 import NewDocument from "./NewDocument";
 import { useStore } from "../../../hooks/useStore";
@@ -10,9 +7,7 @@ import DocumentList from "./DocumentList";
 import {useSnackBarContext} from '../../../hooks/useSnackBarContext';
 
 export default function Documents({trip}) {
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
-    const {error, isPending, uploadFile} = useStore();
+    const {uploadFile} = useStore();
     const {updateDocument, response} = useFirestore('trips');
     const {showSnack} = useSnackBarContext();
 

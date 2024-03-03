@@ -1,7 +1,7 @@
 import { useTheme } from "@emotion/react";
 import { Snackbar } from "@mui/material";
 import MuiAlert from '@mui/material/Alert';
-import { forwardRef, useState } from "react";
+import { forwardRef } from "react";
 import { tokens } from "../theme";
 import { useSnackBarContext } from "../hooks/useSnackBarContext";
 

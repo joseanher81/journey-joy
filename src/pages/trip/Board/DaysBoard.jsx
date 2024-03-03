@@ -11,8 +11,7 @@ import { useTheme } from '@emotion/react';
 import { tokens } from '../../../theme';
 import {useSnackBarContext} from '../../../hooks/useSnackBarContext';
 import { timestamp } from '../../../firebase/config';
-import { format, parseISO, addDays } from 'date-fns';
-import { es } from 'date-fns/locale'; 
+import { addDays } from 'date-fns';
 
 const Container = styled.div`
   display: flex;

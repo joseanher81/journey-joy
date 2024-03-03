@@ -2,7 +2,6 @@ import { useTheme } from "@mui/material";
 import { ResponsiveChoropleth } from "@nivo/geo";
 import { geoFeatures } from './GeoFeatures';
 import { tokens } from "../../../theme";
-import { calculateCountryVisits } from "../../../helpers/formatOverviewData";
 
 const GeoMap = ({ isDashboard = false, mapData }) => {
   const theme = useTheme();

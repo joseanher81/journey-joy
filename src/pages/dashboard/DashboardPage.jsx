@@ -1,5 +1,3 @@
-import { Box, Button, Container, Stack, Typography } from "@mui/material";
-import TripsList from "./components/TripsList";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useEffect, useState } from "react";
 import { useTripsContext } from "../../hooks/useTripsContext";

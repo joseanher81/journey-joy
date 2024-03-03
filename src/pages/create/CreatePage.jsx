@@ -1,7 +1,6 @@
 import { useTheme } from "@emotion/react";
 import { Autocomplete, Box, Button, Container, Grid, TextField, Typography } from "@mui/material";
 import Paper from '@mui/material/Paper';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { tokens } from "../../theme";
 import { useEffect, useState } from "react";
 import { timestamp } from '../../firebase/config';
@@ -13,7 +12,7 @@ import { createActivityDays } from "../../helpers/formatActivities";
 import { useCollection } from "../../hooks/useCollection";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useGeolocation } from "../../hooks/useGeolocation";
-import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { DesktopDatePicker } from "@mui/x-date-pickers";
 import {useSnackBarContext} from '../../hooks/useSnackBarContext';
 
 export default function CreatePage() {
@@ -23,7 +22,7 @@ export default function CreatePage() {
     const navigate = useNavigate();
     const {user} = useAuthContext();
     const { addDocument, response } = useFirestore('trips');
-    const {documents: companionsOptions, error} = useCollection('users');
+    const {documents: companionsOptions} = useCollection('users');
     const { findISOAndCountryByPlace } = useGeolocation();
     const [formError, setFormError] = useState(null);
     const {showSnack} = useSnackBarContext();

@@ -1,6 +1,4 @@
-import { useTheme } from '@emotion/react';
 import { Avatar, Grid, Paper, Typography } from '@mui/material';
-import { tokens } from '../../theme';
 import { useAuthContext } from '../../hooks/useAuthContext';
 
 export default function Stats({countriesVisited, daysTraveled, mostVisitedCountry, numberOfTrips, companions}) {
