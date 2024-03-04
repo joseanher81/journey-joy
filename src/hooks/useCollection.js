@@ -8,7 +8,7 @@ import { collection, onSnapshot, query, where, or, orderBy } from "firebase/fire
 export const useCollection = (col, _query, _orderBy) => {
 
     const [documents, setDocuments] = useState(null);
-    const [error, setError] = useState(null);
+    //const [error, setError] = useState(null); DEAL WITH POSSIBLE ERRORS IN THE FUTURE
 
     const q = useRef(_query).current; // Avoids infite loop since it is a dependency of useEffect and an array
     const order = useRef(_orderBy).current; // Avoids infite loop since it is a dependency of useEffect and an array
@@ -50,16 +50,16 @@ export const useCollection = (col, _query, _orderBy) => {
         });
 
         return () => unsub();
-    },[col, q])
+    },[col, q, order])
 
 
-    return { documents, error }
+    return { documents }
 }
 
 export const useCollectionComplexQuery = (col, _query, _orderBy) => {
 
     const [documents, setDocuments] = useState(null);
-    const [error, setError] = useState(null);
+    //const [error, setError] = useState(null); DEAL WITH POSSIBLE ERRORS IN THE FUTURE
 
     const q = useRef(_query).current; // Avoids infite loop since it is a dependency of useEffect and an array
     const order = useRef(_orderBy).current; // Avoids infite loop since it is a dependency of useEffect and an array
@@ -102,8 +102,8 @@ export const useCollectionComplexQuery = (col, _query, _orderBy) => {
         });
 
         return () => unsub();
-    },[col, q])
+    },[col, q, order])
 
 
-    return { documents, error }
+    return { documents }
 }
