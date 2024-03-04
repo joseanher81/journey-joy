@@ -68,7 +68,7 @@ export default function NewDocument({openModal, handleCloseModal, handleAddDocum
         setFileError(null); // Reset any previous error
         console.log(file)
   
-        let selected = file;
+        const selected = file;
   
         // File validations
         if(!selected) {

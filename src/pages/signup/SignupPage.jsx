@@ -62,7 +62,7 @@ export default function SignupPage() {
       setThumbnailError(null); // Reset any previous error
       
 
-      let selected = file;
+      const selected = file;
 
       // File validations
       if(!selected) {

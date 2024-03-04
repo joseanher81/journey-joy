@@ -21,17 +21,17 @@ export default function DashboardPage({searchQuery, setSearchQuery}) {
   // Update trip list according to search on topbar
   useEffect(() => {
     if(tripsList) {
-      let filtered = tripsList.filter(doc => {
+      const filtered = tripsList.filter(doc => {
         return doc.title.toLowerCase().includes(searchQuery) || doc.place.toLowerCase().includes(searchQuery)
       });
 
       // Split trips into past and future lists
       const today = new Date();
 
-      let future = filtered.filter(doc => isAfter(doc.endDate.toDate(), today) || isSameDay(doc.endDate.toDate(), today));
+      const future = filtered.filter(doc => isAfter(doc.endDate.toDate(), today) || isSameDay(doc.endDate.toDate(), today));
       setTrips(future);
 
-      let past = filtered.filter(doc => isBefore(doc.endDate.toDate(), today) && !isSameDay(doc.endDate.toDate(), today));
+      const past = filtered.filter(doc => isBefore(doc.endDate.toDate(), today) && !isSameDay(doc.endDate.toDate(), today));
       setPastTrips(past.reverse()); //Display first the recent ones
     }
   }, [searchQuery, tripsList]);

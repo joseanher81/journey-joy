@@ -41,7 +41,7 @@ export const useCollection = (col, _query, _orderBy) => {
 
         // Subscripcion
         const unsub = onSnapshot(collectionRef, (snapshot) =>{
-            let results = [];
+            const results = [];
             snapshot.docs.forEach( doc => {
                 results.push({ ...doc.data(), id: doc.id });
             })
@@ -93,7 +93,7 @@ export const useCollectionComplexQuery = (col, _query, _orderBy) => {
         console.log('colref', collectionRef)
         // Subscripcion
         const unsub = onSnapshot(collectionRef, (snapshot) =>{
-            let results = [];
+            const results = [];
             snapshot.docs.forEach( doc => {
                 results.push({ ...doc.data(), id: doc.id });
             })
