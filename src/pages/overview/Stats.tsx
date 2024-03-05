@@ -1,17 +1,6 @@
+import { StatsProps } from '../../../interfaces';
 import { Avatar, Grid, Paper, Typography } from '@mui/material';
 import { useAuthContext } from '../../hooks/useAuthContext';
-
-interface StatsProps {
-    countriesVisited: number;
-    daysTraveled: number;
-    mostVisitedCountry: string;
-    numberOfTrips: number;
-    companions: Array<{
-        id: string,
-        photoURL: string,
-        displayName: string
-    }>;
-}
 
 const Stats = (props: StatsProps) => {
     const {countriesVisited, daysTraveled, mostVisitedCountry, numberOfTrips, companions} = props;

@@ -3,15 +3,17 @@ import { useEffect, useState } from "react";
 import { useTripsContext } from "../../hooks/useTripsContext";
 import { isBefore, isAfter, isSameDay } from 'date-fns';
 import TripsBlock from "./components/TripsBlock";
+import { DashboardPageProps, Trip } from "../../../interfaces";
 
-export default function DashboardPage({searchQuery, setSearchQuery}) {
+export default function DashboardPage(props: DashboardPageProps) {
+  const {searchQuery, setSearchQuery} = props;
 
-  const { tripsList } = useTripsContext();
+  const { tripsList }: { tripsList: Trip[] } = useTripsContext();
 
   const {user} = useAuthContext();
 
-  const [trips, setTrips] = useState(null);
-  const [pastTrips, setPastTrips] = useState(null);
+  const [trips, setTrips] = useState<Trip[] | null>(null);
+  const [pastTrips, setPastTrips] = useState<Trip[] | null>(null);
 
   // Clean search query on first time (MAYBE THIS COULD BE SOLVED IN A BETTER WAY)
   useEffect(()=> {
@@ -42,10 +44,10 @@ export default function DashboardPage({searchQuery, setSearchQuery}) {
       {(!trips || trips?.length === 0) && <TripsBlock user={user} title="No hay viajes" />}
 
       {/* Future trips */}
-      {(trips?.length >0) && <TripsBlock user={user} title="Mis viajes" future={true} trips={trips}/>}
+      {(trips && trips?.length >0) && <TripsBlock user={user} title="Mis viajes" future={true} trips={trips}/>}
 
       {/* Past trips */}
-      {(pastTrips?.length >0) && <TripsBlock user={user} title="Viajes pasados" future={false} trips={pastTrips}/>}
+      {(pastTrips && pastTrips?.length >0) && <TripsBlock user={user} title="Viajes pasados" future={false} trips={pastTrips}/>}
       
     </main>
   )

@@ -1,8 +1,10 @@
+import { TripsBlockProps } from "../../../../interfaces";
 import { Box, Container, Typography } from "@mui/material";
 import TripsList from "./TripsList";
 
+const TripsBlock = (props: TripsBlockProps) => {
+  const {user, title, future, trips} = props;
 
-export default function TripsBlock({user, title, future, trips}) {
   return (
     <>
         {/* Hero unit */}
@@ -44,3 +46,5 @@ export default function TripsBlock({user, title, future, trips}) {
     </>
   )
 }
+
+export default TripsBlock;

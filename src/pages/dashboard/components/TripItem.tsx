@@ -1,13 +1,15 @@
+import { Trip } from "../../../../interfaces";
 import { Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
 import { FmdGoodOutlined, AccessTimeOutlined, CalendarMonthOutlined } from "@mui/icons-material";
 import { formatDistanceToNow } from 'date-fns';
 import esLocale from 'date-fns/esm/locale/es';
 import { useNavigate } from "react-router-dom";
-import { useTheme } from "@emotion/react";
+import { useTheme } from "@mui/material";
 import { tokens } from "../../../theme";
 
 
-export default function TripItem({trip}) {
+const TripItem = ({ trip }: { trip: Trip })=> {
+
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
@@ -59,3 +61,5 @@ export default function TripItem({trip}) {
     </Grid>
   )
 }
+
+export default TripItem;
