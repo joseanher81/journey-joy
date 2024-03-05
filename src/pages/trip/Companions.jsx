@@ -14,7 +14,7 @@ export default function Companions({trip}) {
             {trip.companions.map((companion, index) => 
                 user.uid !== companion.id && 
                 (
-                    <Grid item xs={1} key={index}>
+                    <Grid item xs={1} key={index} sx={{ marginRight: '10px'}}>
                         <Grid container direction="column" alignItems="center">
                             <Avatar alt={companion.displayName} src={companion.photoURL} sx={{ width: 100, height: 100 }} />
                             <Typography variant="subtitle1" align="center">
