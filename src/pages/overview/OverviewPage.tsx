@@ -1,4 +1,4 @@
-import { useTheme } from "@emotion/react";
+import { useTheme } from "@mui/material/styles"; 
 import { Box } from "@mui/material";
 import GeoMap from "./map/GeoMap";
 import { useTripsContext } from "../../hooks/useTripsContext";
@@ -6,14 +6,14 @@ import Stats from "./Stats";
 import { useOverviewData } from "../../hooks/useOverviewData";
 
 
-export default function OverviewPage() {
+const OverviewPage = () => {
     const theme = useTheme();
     const {tripsList} = useTripsContext();
     const {mapData, countriesVisited, daysTraveled, mostVisitedCountry, numberOfTrips, companions} = useOverviewData(tripsList);
 
 
     return (
-        <main style={{'backgroundColor': theme.palette.background}}> 
+        <main style={{'backgroundColor': theme.palette.background.default}}> 
 
             <Box
                 height="75vh"
@@ -36,4 +36,6 @@ export default function OverviewPage() {
             </Box>
         </main>
     )
-    }
+}
+
+export default OverviewPage;

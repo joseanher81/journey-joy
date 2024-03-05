@@ -3,7 +3,16 @@ import { ResponsiveChoropleth } from "@nivo/geo";
 import { geoFeatures } from './GeoFeatures';
 import { tokens } from "../../../theme";
 
-const GeoMap = ({ isDashboard = false, mapData }) => {
+interface GeoMapProps {
+  isDashboard?: boolean;
+  mapData:  Array<{
+    id: string;
+    value: any;
+  }>;
+}
+
+const GeoMap = (props: GeoMapProps) => {
+  const { isDashboard, mapData } = props;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 

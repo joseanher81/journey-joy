@@ -1,7 +1,20 @@
 import { Avatar, Grid, Paper, Typography } from '@mui/material';
 import { useAuthContext } from '../../hooks/useAuthContext';
 
-export default function Stats({countriesVisited, daysTraveled, mostVisitedCountry, numberOfTrips, companions}) {
+interface StatsProps {
+    countriesVisited: number;
+    daysTraveled: number;
+    mostVisitedCountry: string;
+    numberOfTrips: number;
+    companions: Array<{
+        id: string,
+        photoURL: string,
+        displayName: string
+    }>;
+}
+
+const Stats = (props: StatsProps) => {
+    const {countriesVisited, daysTraveled, mostVisitedCountry, numberOfTrips, companions} = props;
     const {user} = useAuthContext();
 
     return (
@@ -73,3 +86,5 @@ export default function Stats({countriesVisited, daysTraveled, mostVisitedCountr
         </>
     )
 }
+
+export default Stats;
