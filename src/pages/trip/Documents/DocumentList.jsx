@@ -15,7 +15,7 @@ export default function DocumentList({handleOpenModal, trip}) {
     return (
         <Grid container spacing={2} sx={{margin: '0 50px 40px', minHeight: '200px'}}>
             {trip.documents?.map( card => (
-                <Grid item xs={1} key={card.fileURL}>
+                <Grid item xs={2} key={card.fileURL}>
                 <a
                     href={card.fileURL}
                     target="_blank" 
@@ -23,7 +23,8 @@ export default function DocumentList({handleOpenModal, trip}) {
                     style={{ textDecoration: 'none', color: 'inherit', width: '100%', height: '100%', cursor: 'pointer' }}
                 >
                         <Paper elevation={3} sx={{
-                            width: '90%', // Ancho de la tarjeta
+                           
+                            minWidth: '100px',
                             height: '100%', // Alto de la tarjeta
                             backgroundColor: colors.greenAccent[900], // Color de fondo de la tarjeta
                             borderRadius: 5,
