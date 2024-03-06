@@ -23,6 +23,7 @@ const OverviewPage = () => {
             </Box>
             <Box
                 height="75vh"
+                style={{  backgroundColor: theme.palette.background.paper }}
             >
                 <Stats 
                     countriesVisited={countriesVisited}
