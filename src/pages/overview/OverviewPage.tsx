@@ -19,13 +19,11 @@ const OverviewPage = () => {
                 height="75vh"
                 borderBottom={`1px solid rgba(0, 0, 0, 0.12)`}
             >
-                {/* <Map data={geoData}/> */}
                 <GeoMap mapData={mapData}/>
             </Box>
             <Box
                 height="75vh"
             >
-                {/* <Map data={geoData}/> */}
                 <Stats 
                     countriesVisited={countriesVisited}
                     daysTraveled={daysTraveled}
