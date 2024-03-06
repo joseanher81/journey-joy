@@ -11,7 +11,7 @@ export default function SnackBar() {
     const colors = tokens(theme.palette.mode);
     const {visible, message, severity, hideSnack} = useSnackBarContext();
 
-    const Alert = forwardRef(function Alert(props, ref) {
+    const Alert = forwardRef((props, ref) => {
         return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
       });
     
