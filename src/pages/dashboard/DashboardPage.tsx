@@ -15,11 +15,6 @@ export default function DashboardPage(props: DashboardPageProps) {
   const [trips, setTrips] = useState<Trip[] | null>(null);
   const [pastTrips, setPastTrips] = useState<Trip[] | null>(null);
 
-  // Clean search query on first time (MAYBE THIS COULD BE SOLVED IN A BETTER WAY)
-  useEffect(()=> {
-    setSearchQuery('');
-  }, []);
-
   // Update trip list according to search on topbar
   useEffect(() => {
     if(tripsList) {

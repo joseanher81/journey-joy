@@ -2,6 +2,7 @@ import { Box, IconButton, InputBase } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useTheme } from "@emotion/react";
 import { tokens } from "../theme";
+import { useEffect } from "react";
 
 
 
@@ -9,6 +10,13 @@ import { tokens } from "../theme";
 export default function Search({setSearchQuery}) {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+
+    // This cleans the search query state when the search component unmounts
+    useEffect(()=> {
+        return () => {
+          setSearchQuery('');
+        }
+      }, []);
 
     const handleSearch = (e) => {
         const query = e.target.value;
