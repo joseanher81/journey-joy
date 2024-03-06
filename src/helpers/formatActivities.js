@@ -28,6 +28,9 @@ export const formatActivitiesForFirebase = (columns) => {
     return update;
 }
 
+/* This function creates the trip days
+    for the react-beautiful-dnd board
+*/
 export const createActivityDays = (days) => {
     const result = {};
     for(let i = 1; i <= days; i++) {
